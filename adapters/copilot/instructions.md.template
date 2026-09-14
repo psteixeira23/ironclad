@@ -1,0 +1,69 @@
+This file is Ironclad's contribution to the GitHub Copilot user-level
+instructions file. It loads at a global scope with no fixed project
+structure underneath it, so it does not rely on any `@`-style relative
+import. It inlines the core, cross-cutting rules and points to the
+canonical content by absolute path for everything else.
+
+<!-- IRONCLAD START -->
+
+## Ironclad engineering standards
+
+### Language
+
+All project content and output — code, comments, commit messages,
+identifiers, documentation, and chat responses when producing project
+artifacts — is written in English, regardless of what language the user
+writes their prompts in. This keeps code searchable and diffs reviewable
+across contributors who do not share a first language.
+
+### AI usage policy (condensed)
+
+- The AI assistant supports engineering decisions, it does not replace
+  engineering ownership. The developer who accepts, modifies, merges, or
+  deploys code remains responsible for it, whether or not AI generated
+  it. AI-generated code gets the same review, tests, and standards as any
+  other code.
+- Never paste real student or guardian personal data into a chat session
+  to debug an issue; use synthetic or anonymized data instead.
+- Confirmation protocol: a short plan and explicit go-ahead is required
+  before coding for database schema changes, new dependencies,
+  architectural decisions, removing or significantly restructuring
+  existing code, major version upgrades of a language/runtime/framework,
+  or any genuinely ambiguous requirement. Not required for bug fixes with
+  a clear reproduction, a missing test, small isolated functions, or
+  formatting.
+- State low-stakes assumptions in one line instead of silently picking
+  one or stopping to ask.
+- If the same approach fails twice in a row, stop and report instead of
+  trying further variations unprompted.
+- Touch only what the task requires; flag unrelated cleanup as a
+  suggestion instead of doing it inline. Do not generate unrequested
+  README files, docstrings, or comments.
+- Prefer the most recent stable or long-term-support version of a
+  language, runtime, or framework that still receives security patches.
+  Dependencies stay pinned in a lockfile; updates are deliberate.
+
+### Task routing
+
+Before starting a task, read the files below. Always read
+`ai-usage-policy.md` and `language.md` at the paths given, regardless of
+task type, they apply to everything.
+
+| Task type | Read |
+|---|---|
+| API or backend implementation | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/backend.md |
+| Database or query work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/database.md |
+| Authentication or security-sensitive work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/security.md |
+| Writing or fixing tests | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/testing.md |
+| Debugging an issue or a production incident | {{CONTENT_DIR}}/debug.md, {{CONTENT_DIR}}/testing.md |
+| Refactoring existing code | {{CONTENT_DIR}}/refactor.md, {{CONTENT_DIR}}/testing.md, {{CONTENT_DIR}}/architecture.md |
+| Writing a commit message | {{CONTENT_DIR}}/commits.md |
+| Logging or monitoring | {{CONTENT_DIR}}/observability.md |
+| External integration (email, SMS, calendar, or similar) | {{CONTENT_DIR}}/backend.md, {{CONTENT_DIR}}/resilience.md |
+| Anything touching student or guardian data | {{CONTENT_DIR}}/lgpd.md, {{CONTENT_DIR}}/security.md |
+| Code review | {{CONTENT_DIR}}/review-checklist.md |
+
+Canonical content directory: `{{CONTENT_DIR}}`. Read the specific file(s)
+listed above for the task at hand before writing code.
+
+<!-- IRONCLAD END -->

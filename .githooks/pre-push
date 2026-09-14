@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+#
+# Ironclad pre-push hook.
+#
+# Bumps VERSION based on Conventional Commit types found in the commits
+# being pushed, since the last version-bump commit. fix -> patch,
+# feat -> minor, a breaking-change marker (! after type/scope, or a
+# "BREAKING CHANGE:" footer) -> major. Highest-severity type found wins.
+#
+# If the most recent commit is already a version-bump commit, this hook
+# does nothing, that is how it avoids looping when you push a second
+# time after the bump.
+#
+# One-time setup per machine: git config core.hooksPath .githooks
+
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+VERSION_FILE="$REPO_ROOT/VERSION"
+BUMP_COMMIT_PREFIX="chore(release):"
+
+last_subject="$(git log -1 --pretty=%s)"
+if [[ "$last_subject" == "$BUMP_COMMIT_PREFIX"* ]]; then
+  exit 0
+fi
+
+last_bump_commit="$(git log --grep="^${BUMP_COMMIT_PREFIX}" --pretty=%H -1 || true)"
+if [[ -n "$last_bump_commit" ]]; then
+  range="${last_bump_commit}..HEAD"
+else
+  range="HEAD"
+fi
+
+subjects="$(git log "$range" --pretty=%s || true)"
+
+if [[ -z "$subjects" ]]; then
+  exit 0
+fi
+
+bump="none"
+
+while IFS= read -r subject; do
+  if [[ "$subject" =~ ^[a-zA-Z]+(\([a-zA-Z0-9_-]+\))?!: ]]; then
+    bump="major"
+    break
+  fi
+  if [[ "$subject" =~ ^feat(\([a-zA-Z0-9_-]+\))?: ]]; then
+    if [[ "$bump" != "major" ]]; then
+      bump="minor"
+    fi
+  fi
+  if [[ "$subject" =~ ^fix(\([a-zA-Z0-9_-]+\))?: ]]; then
+    if [[ "$bump" == "none" ]]; then
+      bump="patch"
+    fi
+  fi
+done <<< "$subjects"
+
+if [[ "$bump" == "none" ]]; then
+  exit 0
+fi
+
+current_version="$(cat "$VERSION_FILE" | tr -d '[:space:]')"
+IFS='.' read -r major minor patch <<< "$current_version"
+
+case "$bump" in
+  major)
+    major=$((major + 1)); minor=0; patch=0
+    ;;
+  minor)
+    minor=$((minor + 1)); patch=0
+    ;;
+  patch)
+    patch=$((patch + 1))
+    ;;
+esac
+
+new_version="${major}.${minor}.${patch}"
+echo "$new_version" > "$VERSION_FILE"
+
+git -C "$REPO_ROOT" add VERSION
+git -C "$REPO_ROOT" commit -m "${BUMP_COMMIT_PREFIX} ${new_version}" --quiet
+
+echo ""
+echo "Ironclad version bumped: ${current_version} -> ${new_version} (${bump})"
+echo "This push was stopped so the bump commit could be created."
+echo "Run 'git push' again to push your changes plus the version bump."
+echo ""
+
+exit 1

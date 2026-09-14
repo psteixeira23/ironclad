@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+'use strict';
+
+/**
+ * Ironclad CLI.
+ *
+ * Today this only reports the installed version. Actual engineering
+ * standards work happens through the skill/adapter installed for your
+ * harness (Claude Code, GitHub Copilot, or OpenAI Codex), invoked from
+ * within that harness, not from this command.
+ */
+
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
+
+function readVersion() {
+  const installedPath = path.join(os.homedir(), '.ironclad', 'VERSION');
+  const devPath = path.join(__dirname, '..', 'VERSION');
+
+  for (const candidate of [installedPath, devPath]) {
+    try {
+      return fs.readFileSync(candidate, 'utf8').trim();
+    } catch (err) {
+      // try the next candidate
+    }
+  }
+  return 'unknown';
+}
+
+function main() {
+  const args = process.argv.slice(2);
+
+  if (args.includes('--version') || args.includes('--v') || args.includes('-v')) {
+    console.log(readVersion());
+    return;
+  }
+
+  console.log(`Ironclad v${readVersion()}`);
+  console.log('');
+  console.log('This command currently only reports the installed version.');
+  console.log('Engineering standards are used through the skill installed for');
+  console.log('your harness (Claude Code: /ironclad, GitHub Copilot and OpenAI');
+  console.log('Codex: applied automatically from their instruction files).');
+  console.log('');
+  console.log('Run the installer again to update: node installer/install.js');
+}
+
+main();

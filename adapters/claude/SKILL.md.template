@@ -1,0 +1,66 @@
+---
+name: ironclad
+description: Engineering standards for architecture, backend, database, security, testing, observability, resilience, and data protection, plus a full code review checklist. Applies when writing, reviewing, or discussing backend code, API endpoints, database queries, authentication, tests, logging, external integrations, or anything touching student or guardian data.
+when_to_use: Trigger automatically on requests like "create an endpoint", "write a query", "add authentication", "review this code", "write tests for X", "add logging", "call an external API", or anything involving personal or student data. Also trigger when the user explicitly types /ironclad.
+---
+
+# Ironclad
+
+Ironclad is a set of engineering standards, bundled alongside this file as
+individual Markdown files in this same skill folder, including
+`task-routing.md`, the table this skill uses to decide what to read. This
+skill file routes to them; it does not duplicate their content.
+
+## How to decide what to read
+
+Consult `task-routing.md`, bundled alongside this file, to map the task at
+hand to the file(s) that apply. Always read `ai-usage-policy.md` and
+`language.md` regardless of task type, they are cross-cutting.
+
+## When the user types `/ironclad` with no argument
+
+Show the short index below and stop. This is a deliberate request to see
+what is available, not a request to apply a rule yet.
+
+| File | Covers |
+|---|---|
+| `language.md` | English-only rule for all project content and output. |
+| `architecture.md` | Layered architecture, dependency rule, SOLID. |
+| `backend.md` | Server-side validation, IDOR, mass assignment, error handling, sessions, passwords, SSRF, path traversal. |
+| `database.md` | Schema design, indexing, N+1 prevention, migrations, Row Level Security. |
+| `security.md` | Pre-launch and ongoing security checklist. |
+| `testing.md` | TDD, test scope, fragile tests, the 95% coverage floor. |
+| `debug.md` | Systematic debugging, local and production incidents. |
+| `refactor.md` | Behavior-preserving change, characterization tests for legacy code. |
+| `commits.md` | Conventional Commits format, message content and length. |
+| `observability.md` | Structured logging, correlation IDs, log levels, what never to log. |
+| `resilience.md` | Timeouts, retries, idempotency, graceful degradation for outbound calls. |
+| `lgpd.md` | Data protection for minors and guardians under LGPD. |
+| `ai-usage-policy.md` | Team accountability for AI-generated code, and how this assistant should operate. |
+| `review-checklist.md` | The full code review checklist, what `/ironclad review` applies. |
+| `task-routing.md` | Table mapping task type to which files to read. |
+
+## When you are invoking this skill yourself, automatically
+
+Do not stop at the index in this case, that behavior is reserved for a
+user typing the bare command. Instead, look at the task you are about to
+do, match it against `task-routing.md`, read every file it points to for
+that task type, and proceed applying their rules. If the task spans more
+than one topic, for example an endpoint that also queries the database,
+read every file every matching row points to, not just the first match.
+If you are genuinely unsure which row applies, read `review-checklist.md`
+as a safe general default rather than skipping standards entirely.
+
+## When an explicit topic argument is given
+
+One or more of: `architecture`, `backend`, `database`, `security`,
+`testing`, `observability`, `resilience`, `lgpd`, `debug`, `refactor`,
+`commits`, `review` (maps to `review-checklist.md`). Read every file
+named, plus `ai-usage-policy.md` and `language.md`, and apply them to the
+current task. Multiple topics may be given together, for example
+`/ironclad backend database`.
+
+## `/ironclad review`
+
+Read `review-checklist.md` and apply it to the current diff or recently
+changed files.
