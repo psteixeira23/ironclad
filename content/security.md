@@ -54,10 +54,24 @@ Pre-launch and ongoing security checklist.
     an internal-sounding name, and check for known vulnerabilities before
     adding a new dependency.
 21. **Path traversal.** See `backend.md`.
+22. **CSRF (Cross-Site Request Forgery).** Every state-changing,
+    cookie-authenticated request is protected with a CSRF token, not
+    `SameSite` alone. See `backend.md`.
+23. **XSS (Cross-Site Scripting).** All rendered output is escaped by
+    default; raw HTML is only rendered through an allow-list sanitizer.
+    See `frontend.md`.
+24. **CORS.** An explicit origin allow-list, never a wildcard combined
+    with credentials. See `backend.md`.
+25. **Subresource Integrity.** Any third-party script loaded from a CDN
+    or external origin has an `integrity` hash, so a tampered version
+    fails to load instead of executing. See `frontend.md`.
+26. **Dynamic code execution.** No `eval()`, unrestricted deserializer,
+    or equivalent runs on user-supplied or externally-sourced input,
+    client-side or server-side. See `frontend.md` and `backend.md`.
 
 "No vulnerabilities" is not an achievable absolute. The goal is
 eliminating known, testable vulnerability classes and following rigorous
 practice. Real security still requires human review, dependency scanning,
 and testing beyond what a checklist alone can guarantee.
 
-Related: `backend.md`, `database.md`, `lgpd.md`, `review-checklist.md`.
+Related: `backend.md`, `frontend.md`, `database.md`, `lgpd.md`, `review-checklist.md`.

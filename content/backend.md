@@ -60,6 +60,32 @@ described in `architecture.md`.
   factor. Never plain text, and never a fast general-purpose hash such as
   MD5 or SHA1, for passwords.
 
+## Cross-site request forgery (CSRF)
+
+- Any state-changing request (`POST`, `PUT`, `PATCH`, `DELETE`) made by
+  an authenticated, cookie-based session must be protected against
+  forgery from another site. `SameSite=Lax` or `SameSite=Strict` on the
+  session cookie helps but is not sufficient alone, browser support and
+  edge cases (subdomains, older clients) vary.
+- Use a CSRF token (synchronizer token or double-submit cookie pattern)
+  for cookie-authenticated state-changing requests, verified server-side
+  on every such request, not just present in the form and never checked.
+- An API authenticated by a bearer token in a header (not a cookie sent
+  automatically by the browser) is not vulnerable to CSRF the same way,
+  a token-based API does not need this same defense, but confirm which
+  authentication model this project actually uses before assuming
+  either way.
+
+## Cross-origin resource sharing (CORS)
+
+- Set an explicit allow-list of origins permitted to call this API from
+  a browser. Never `Access-Control-Allow-Origin: *` on an endpoint that
+  also allows credentials (cookies, `Authorization` headers tied to a
+  session), that combination defeats the same-origin protections CORS
+  exists to provide.
+- Only allow the HTTP methods and headers the endpoint actually needs,
+  do not reflect back whatever the request asked for.
+
 ## Outbound requests
 
 - Any outbound HTTP call built from user-supplied input must validate the
@@ -67,6 +93,26 @@ described in `architecture.md`.
   Forgery). Do not resolve and fetch an arbitrary user-supplied URL
   without checking it against an allow-list or otherwise constraining
   what it can reach, including internal/private network ranges.
+
+## Dynamic code execution
+
+Never let user-supplied or externally-sourced input control what code
+runs, regardless of the specific mechanism a language exposes for
+this:
+
+- `eval()` / `exec()` (Python, JavaScript/Node, Ruby).
+- An unrestricted deserializer that executes code as a side effect of
+  parsing: Python's `pickle`, PHP's `unserialize`, Java's native
+  `ObjectInputStream` deserialization, Ruby's `Marshal.load`.
+- A scripting or expression-language engine fed untrusted input: Java's
+  JSR 223 `ScriptEngine`, Spring Expression Language (SpEL) injection,
+  or a JNDI lookup built from user input, the mechanism behind the
+  Log4Shell vulnerability.
+- A template engine's raw-code execution mode, or reflection-based
+  instantiation of a class named by user input.
+
+Parse external input as data, never as code or as a reference the
+runtime resolves and executes.
 
 ## File uploads and paths
 

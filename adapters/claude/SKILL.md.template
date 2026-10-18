@@ -1,7 +1,7 @@
 ---
 name: ironclad
-description: Engineering standards for architecture, backend, database, security, testing, observability, resilience, and data protection, plus a full code review checklist. Applies when writing, reviewing, or discussing backend code, API endpoints, database queries, authentication, tests, logging, external integrations, or anything touching student or guardian data.
-when_to_use: Trigger automatically on requests like "create an endpoint", "write a query", "add authentication", "review this code", "write tests for X", "add logging", "call an external API", or anything involving personal or student data. Also trigger when the user explicitly types /ironclad.
+description: Engineering standards for architecture, backend, frontend, database, security, testing, observability, resilience, and data protection, plus a full code review checklist. Applies when writing, reviewing, or discussing backend or frontend code, API endpoints, database queries, authentication, tests, logging, external integrations, or anything touching personal data.
+when_to_use: Trigger automatically on requests like "create an endpoint", "write a query", "add authentication", "review this code", "write tests for X", "add logging", "call an external API", or anything involving personal data. Also trigger when the user explicitly types /ironclad, including /ironclad core, /ironclad full, or /ironclad max to set the intensity level.
 ---
 
 # Ironclad
@@ -17,6 +17,28 @@ Consult `task-routing.md`, bundled alongside this file, to map the task at
 hand to the file(s) that apply. Always read `ai-usage-policy.md` and
 `language.md` regardless of task type, they are cross-cutting.
 
+## Selecting the intensity level
+
+Ironclad runs at one of three intensity levels, `core`, `full`, or
+`max`, described in `intensity.md`. The level controls how much of the
+adjustable, craft-depth guidance you load; it never drops the security
+floor (`ai-usage-policy.md`, `language.md`, `security.md`, and `lgpd.md`
+when personal data is involved), which loads at every level.
+
+Determine the active level, highest precedence first:
+
+1. An explicit `/ironclad core`, `/ironclad full`, or `/ironclad max`
+   typed this session.
+2. An `.ironclad` file at the project root whose first non-empty,
+   non-comment line names the level.
+3. The default, `full`, if neither is present.
+
+Then apply it when reading `task-routing.md`: at `core`, read only the
+single most task-specific file from the matching row; at `full`, read
+every file the row points to; at `max`, additionally read
+`review-checklist.md` and treat the coverage floor in `testing.md` as
+mandatory. An unrecognized level falls back to `full`.
+
 ## When the user types `/ironclad` with no argument
 
 Show the short index below and stop. This is a deliberate request to see
@@ -25,40 +47,48 @@ what is available, not a request to apply a rule yet.
 | File | Covers |
 |---|---|
 | `language.md` | English-only rule for all project content and output. |
+| `intensity.md` | The three intensity levels (core, full, max) and how the active level is selected. |
 | `architecture.md` | Layered architecture, dependency rule, SOLID. |
-| `backend.md` | Server-side validation, IDOR, mass assignment, error handling, sessions, passwords, SSRF, path traversal. |
+| `backend.md` | Server-side validation, IDOR, mass assignment, error handling, sessions, passwords, CSRF, CORS, SSRF, path traversal, dynamic code execution. |
+| `frontend.md` | XSS/output escaping, client-side storage, third-party script integrity, component structure. |
 | `database.md` | Schema design, indexing, N+1 prevention, migrations, Row Level Security. |
 | `security.md` | Pre-launch and ongoing security checklist. |
-| `testing.md` | TDD, test scope, fragile tests, the 95% coverage floor. |
+| `testing.md` | TDD, test scope, fragile tests, the coverage floor. |
 | `debug.md` | Systematic debugging, local and production incidents. |
 | `refactor.md` | Behavior-preserving change, characterization tests for legacy code. |
 | `commits.md` | Conventional Commits format, message content and length. |
 | `observability.md` | Structured logging, correlation IDs, log levels, what never to log. |
 | `resilience.md` | Timeouts, retries, idempotency, graceful degradation for outbound calls. |
-| `lgpd.md` | Data protection for minors and guardians under LGPD. |
+| `lgpd.md` | Personal data protection (LGPD, GDPR, or equivalent), with extra guidance when minors are among the project's users. |
 | `ai-usage-policy.md` | Team accountability for AI-generated code, and how this assistant should operate. |
 | `review-checklist.md` | The full code review checklist, what `/ironclad review` applies. |
+| `quality-gate.md` | Automated pre-merge gate (compile/type and lint) that blocks undefined symbols and type errors, per stack. |
 | `task-routing.md` | Table mapping task type to which files to read. |
 
 ## When you are invoking this skill yourself, automatically
 
 Do not stop at the index in this case, that behavior is reserved for a
-user typing the bare command. Instead, look at the task you are about to
-do, match it against `task-routing.md`, read every file it points to for
-that task type, and proceed applying their rules. If the task spans more
-than one topic, for example an endpoint that also queries the database,
-read every file every matching row points to, not just the first match.
-If you are genuinely unsure which row applies, read `review-checklist.md`
-as a safe general default rather than skipping standards entirely.
+user typing the bare command. First determine the active intensity using
+the rules above. Then match the task against `task-routing.md` and apply
+that intensity to every matching row before reading its files: at
+`core`, read only the single most task-specific file from each row; at
+`full`, read every file the row points to; at `max`, also read
+`review-checklist.md` and treat the coverage floor in `testing.md` as
+mandatory. If the task spans more than one topic, for example an endpoint
+that also queries the database, apply the active intensity to every
+matching row, not just the first. Always read the security floor as
+described above. If you are genuinely unsure which row applies, read
+`review-checklist.md` as a safe general default rather than skipping
+standards entirely.
 
 ## When an explicit topic argument is given
 
-One or more of: `architecture`, `backend`, `database`, `security`,
-`testing`, `observability`, `resilience`, `lgpd`, `debug`, `refactor`,
-`commits`, `review` (maps to `review-checklist.md`). Read every file
-named, plus `ai-usage-policy.md` and `language.md`, and apply them to the
-current task. Multiple topics may be given together, for example
-`/ironclad backend database`.
+One or more of: `architecture`, `backend`, `frontend`, `database`,
+`security`, `testing`, `observability`, `resilience`, `lgpd`, `debug`,
+`refactor`, `commits`, `intensity`, `quality-gate`, `review` (maps to `review-checklist.md`). Read
+every file named, plus `ai-usage-policy.md` and `language.md`, and
+apply them to the current task. Multiple topics may be given together,
+for example `/ironclad backend database`.
 
 ## `/ironclad review`
 

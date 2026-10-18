@@ -23,7 +23,8 @@ writes their prompts in.
   engineering ownership. The developer who accepts, modifies, merges, or
   deploys code remains responsible for it. AI-generated code gets the
   same review, tests, and standards as any other code.
-- Never paste real student or guardian personal data into a session to
+- Never paste real personal data (student/guardian data, or any other
+  personal data this project handles) into a session to
   debug an issue; use synthetic or anonymized data instead.
 - Confirmation protocol: a short plan and explicit go-ahead before coding
   for schema changes, new dependencies, architectural decisions,
@@ -39,6 +40,23 @@ writes their prompts in.
 - Prefer the most recent stable or long-term-support version of a
   language, runtime, or framework that still receives security patches.
   Dependencies stay pinned in a lockfile.
+- Do not use a symbol (function, method, flag, env var, path, or library
+  API) you have not confirmed exists, in the code or current docs. Verify,
+  do not recall from memory. Cite file and line for claims about the code,
+  and say you need to check rather than guessing.
+- Read only the slice of a file you need, do not re-read what is in
+  context, show diffs not full reprints. Cheap on output, never cheap on
+  verification.
+
+### Intensity
+
+Three levels: `core`, `full` (default), `max`. Read the level from an
+`.ironclad` file at the project root, else default `full`. The level
+never drops the floor (`language.md`, `ai-usage-policy.md`,
+`security.md`, and `lgpd.md` for personal data), which always applies.
+`core` reads only the single most task-specific file per task; `full`
+reads all files the task maps to; `max` adds `review-checklist.md` and
+makes the coverage floor mandatory. See `{{CONTENT_DIR}}/intensity.md`.
 
 ### Task routing
 
@@ -48,6 +66,7 @@ Read `{{CONTENT_DIR}}/ai-usage-policy.md` and
 | Task type | Read |
 |---|---|
 | API or backend implementation | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/backend.md |
+| Frontend, UI, or rendering-layer work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/frontend.md |
 | Database or query work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/database.md |
 | Authentication or security-sensitive work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/security.md |
 | Writing or fixing tests | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/testing.md |
@@ -56,8 +75,9 @@ Read `{{CONTENT_DIR}}/ai-usage-policy.md` and
 | Writing a commit message | {{CONTENT_DIR}}/commits.md |
 | Logging or monitoring | {{CONTENT_DIR}}/observability.md |
 | External integration (email, SMS, calendar, or similar) | {{CONTENT_DIR}}/backend.md, {{CONTENT_DIR}}/resilience.md |
-| Anything touching student or guardian data | {{CONTENT_DIR}}/lgpd.md, {{CONTENT_DIR}}/security.md |
+| Anything touching personal data (student/guardian data, or any other personal data this project handles) | {{CONTENT_DIR}}/lgpd.md, {{CONTENT_DIR}}/security.md |
 | Code review | {{CONTENT_DIR}}/review-checklist.md |
+| Setting up a quality gate, CI check, or commit hook | {{CONTENT_DIR}}/quality-gate.md |
 
 Canonical content directory: `{{CONTENT_DIR}}`.
 

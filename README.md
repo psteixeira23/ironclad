@@ -20,23 +20,26 @@ Ironclad keeps the actual rules in one place, [`content/`](content/), and genera
 
 - **[`content/`](content/)**, the canonical engineering rules, one topic per file:
 
-  | File                  | Covers                                                                                                                   |
-  | --------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-  | `language.md`         | English-only rule for all project content and output.                                                                    |
-  | `architecture.md`     | Layered architecture, dependency rule, SOLID.                                                                            |
-  | `backend.md`          | Server-side validation, IDOR, mass assignment, error handling, sessions, passwords, SSRF, path traversal.                |
-  | `database.md`         | Schema design, indexing, N+1 prevention, migrations, Row Level Security, preventing duplicate records under concurrency. |
-  | `security.md`         | Pre-launch and ongoing security checklist.                                                                               |
-  | `testing.md`          | TDD, test scope, fragile tests, the coverage floor.                                                                      |
-  | `debug.md`            | Systematic debugging, local and production incidents.                                                                    |
-  | `refactor.md`         | Behavior-preserving change, characterization tests for legacy code.                                                      |
-  | `commits.md`          | Conventional Commits format, message content and length.                                                                 |
-  | `observability.md`    | Instrumenting a system and detecting when something is wrong.                                                            |
-  | `resilience.md`       | Timeouts, retries, idempotency, graceful degradation for outbound calls.                                                 |
-  | `lgpd.md`             | Data protection for minors and guardians under LGPD.                                                                     |
-  | `ai-usage-policy.md`  | Team accountability for AI-generated code, and how the assistant should operate.                                         |
-  | `review-checklist.md` | The full code review checklist.                                                                                          |
-  | `task-routing.md`     | Table mapping task type to which files to read.                                                                          |
+  | File                  | Covers                                                                                                                                        |
+  | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `language.md`         | English-only rule for all project content and output.                                                                                         |
+  | `intensity.md`        | The three intensity levels (core, full, max) and how the active level is selected.                                                           |
+  | `architecture.md`     | Layered architecture, dependency rule, SOLID.                                                                                                 |
+  | `backend.md`          | Server-side validation, IDOR, mass assignment, error handling, sessions, passwords, CSRF, CORS, SSRF, path traversal, dynamic code execution. |
+  | `frontend.md`         | XSS/output escaping, client-side storage, third-party script integrity, component structure.                                                  |
+  | `database.md`         | Schema design, indexing, N+1 prevention, migrations, Row Level Security, preventing duplicate records under concurrency.                      |
+  | `security.md`         | Pre-launch and ongoing security checklist.                                                                                                    |
+  | `testing.md`          | TDD, test scope, fragile tests, the coverage floor.                                                                                           |
+  | `debug.md`            | Systematic debugging, local and production incidents.                                                                                         |
+  | `refactor.md`         | Behavior-preserving change, characterization tests for legacy code.                                                                           |
+  | `commits.md`          | Conventional Commits format, message content and length.                                                                                      |
+  | `observability.md`    | Instrumenting a system and detecting when something is wrong.                                                                                 |
+  | `resilience.md`       | Timeouts, retries, idempotency, graceful degradation for outbound calls.                                                                      |
+  | `lgpd.md`             | Personal data protection (LGPD, GDPR, or equivalent), with extra guidance when minors are among the project's users.                          |
+  | `ai-usage-policy.md`  | Team accountability for AI-generated code, and how the assistant should operate.                                                              |
+  | `review-checklist.md` | The full code review checklist.                                                                                                               |
+  | `quality-gate.md`     | Automated pre-merge gate (compile/type + lint) that blocks undefined symbols and type errors, per stack.                                      |
+  | `task-routing.md`     | Table mapping task type to which files to read.                                                                                               |
 
 - **`adapters/`**, per-harness templates that reference `content/` rather than copying it.
 - **`installer/`**, a cross-platform Node.js CLI that installs the adapters for the harness(es) you choose, at the global (machine-wide) scope, so they apply to every project on that machine.
@@ -71,6 +74,24 @@ ironclad --version
 ```
 
 Reports the version currently installed on this machine (from `~/.ironclad/VERSION`, written by the installer), not necessarily whatever this repository's checkout currently has. Re-run the installer after pulling changes to update it.
+
+## Intensity levels
+
+Ironclad runs at one of three levels, set per project by an `.ironclad`
+file at the project root (or per session with `/ironclad core|full|max`
+on Claude Code), defaulting to `full`:
+
+- `core`: the security floor plus only the single most task-specific
+  file. Lowest token cost, for prototypes and throwaway work.
+- `full` (default): the floor plus every file a task maps to. The
+  standard behavior.
+- `max`: everything `full` loads, plus the review checklist applied
+  proactively and a mandatory coverage floor. For critical or
+  personal-data work.
+
+The security floor (`ai-usage-policy.md`, `language.md`, `security.md`,
+and `lgpd.md` when personal data is involved) loads at every level; the
+dial never trades away safety. See `content/intensity.md`.
 
 ## Testing
 

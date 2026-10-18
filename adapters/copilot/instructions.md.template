@@ -23,7 +23,8 @@ across contributors who do not share a first language.
   deploys code remains responsible for it, whether or not AI generated
   it. AI-generated code gets the same review, tests, and standards as any
   other code.
-- Never paste real student or guardian personal data into a chat session
+- Never paste real personal data (student/guardian data, or any other
+  personal data this project handles) into a chat session
   to debug an issue; use synthetic or anonymized data instead.
 - Confirmation protocol: a short plan and explicit go-ahead is required
   before coding for database schema changes, new dependencies,
@@ -42,6 +43,27 @@ across contributors who do not share a first language.
 - Prefer the most recent stable or long-term-support version of a
   language, runtime, or framework that still receives security patches.
   Dependencies stay pinned in a lockfile; updates are deliberate.
+- Do not reference or call a symbol (function, method, flag, environment
+  variable, path, or library API) you have not confirmed exists in the
+  code or current documentation. Verify, do not recall from memory. When
+  stating a fact about the code, cite the file and line. Say you need to
+  check rather than presenting a guess as fact.
+- Read only the part of a file you need, do not re-read what is already
+  in context, and show diffs rather than reprinting unchanged files.
+  Cheap on output, never cheap on verification.
+
+### Intensity
+
+Ironclad runs at one of three intensity levels: `core`, `full`, or
+`max`. The level controls how much of the adjustable guidance applies,
+it never drops the floor. `language.md`, `ai-usage-policy.md`, and
+`security.md` (plus `lgpd.md` when the project handles personal data)
+apply at every level. The level is read from an `.ironclad` file at the
+project root (its first non-empty, non-comment line names the level), and
+defaults to `full` when that file is absent. At `core`, consult only the
+single most task-specific file for a task; at `full`, every file the task
+maps to; at `max`, also apply `review-checklist.md` and treat the
+coverage floor as mandatory. See `{{CONTENT_DIR}}/intensity.md`.
 
 ### Task routing
 
@@ -52,6 +74,7 @@ task type, they apply to everything.
 | Task type | Read |
 |---|---|
 | API or backend implementation | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/backend.md |
+| Frontend, UI, or rendering-layer work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/frontend.md |
 | Database or query work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/database.md |
 | Authentication or security-sensitive work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/security.md |
 | Writing or fixing tests | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/testing.md |
@@ -60,8 +83,9 @@ task type, they apply to everything.
 | Writing a commit message | {{CONTENT_DIR}}/commits.md |
 | Logging or monitoring | {{CONTENT_DIR}}/observability.md |
 | External integration (email, SMS, calendar, or similar) | {{CONTENT_DIR}}/backend.md, {{CONTENT_DIR}}/resilience.md |
-| Anything touching student or guardian data | {{CONTENT_DIR}}/lgpd.md, {{CONTENT_DIR}}/security.md |
+| Anything touching personal data (student/guardian data, or any other personal data this project handles) | {{CONTENT_DIR}}/lgpd.md, {{CONTENT_DIR}}/security.md |
 | Code review | {{CONTENT_DIR}}/review-checklist.md |
+| Setting up a quality gate, CI check, or commit hook | {{CONTENT_DIR}}/quality-gate.md |
 
 Canonical content directory: `{{CONTENT_DIR}}`. Read the specific file(s)
 listed above for the task at hand before writing code.

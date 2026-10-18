@@ -44,6 +44,178 @@ given, inferred from the confirmed entries immediately around it.
 - This is project infrastructure and documentation, committed as `ci:`,
   which does not bump the product version. `VERSION` was not edited.
 
+## 2026-10-18 00:48 (America/Sao_Paulo)
+
+**Author:** Patrick de Souza Teixeira
+
+### Added
+
+- `content/quality-gate.md`: new file. A language-agnostic guide to an
+  automated pre-merge verification gate, the layer that enforces what the
+  advisory rules only ask for. States the two guarantees a gate must give
+  (no undefined symbol merges, no type error merges) and splits the
+  approach by language class: in compiled, statically typed languages
+  (Java, Kotlin, Go, Rust, C#) the build already enforces both for free,
+  so only static analysis and tests are added; in dynamic languages
+  (Python, JavaScript, Ruby, PHP) a type checker plus an
+  undefined-reference linter must be added explicitly, with a per-
+  ecosystem reference table. Covers where the gate runs (local hook for
+  speed, CI for the guarantee) and its relationship to the grounding
+  rule. The specific tools stay in each project's stack, not in Ironclad.
+- `content/ai-usage-policy.md`: two new sections in Part 2. "Grounding
+  and uncertainty" forbids referencing a function, method, flag, path, or
+  API not confirmed to exist (verify against the real code or current
+  docs, not memory), requires citing file and line for claims about the
+  code, and permits saying "I need to check" instead of guessing.
+  "Working economy" covers tool-use economy distinct from writing
+  economy: read only the slice needed, do not re-read context, show diffs
+  not reprints, and spend the saved effort on verification.
+
+### Changed
+
+- `content/task-routing.md`: added a row routing quality-gate, CI, and
+  commit-hook setup to `quality-gate.md`.
+- `adapters/claude/SKILL.md.template`: added the `quality-gate.md` index
+  row and the `quality-gate` topic argument.
+- `adapters/copilot/instructions.md.template` and
+  `adapters/codex/AGENTS.md.template`: added condensed grounding and
+  working-economy bullets to the inlined AI usage policy, and a routing
+  row for the quality gate. Codex kept compact for the 32 KB cap.
+- `adapters/claude/SKILL.md.template` and `README.md`: file index updated
+  for the new topic.
+- Committed as `feat`, which triggers a minor version bump via the
+  `pre-push` hook on push. The resulting number depends on which `feat`
+  commits are in the push range. `VERSION` was not edited by hand.
+
+## 2026-10-17 16:53 (America/Sao_Paulo)
+
+**Author:** Patrick de Souza Teixeira
+
+### Added
+
+- `content/intensity.md`: new file. Three intensity levels, `core`,
+  `full` (default), and `max`, that control how much of the adjustable,
+  craft-depth guidance loads for a task. The levels never drop the
+  security floor (`ai-usage-policy.md`, `language.md`, `security.md`, and
+  `lgpd.md` when personal data is involved), which loads at every level,
+  so the dial trades token and attention cost against engineering depth,
+  not safety. `core` loads the floor plus the single most task-specific
+  file; `full` loads the floor plus every file a task maps to; `max`
+  adds `review-checklist.md` proactively and makes the `testing.md`
+  coverage floor mandatory.
+- New `.ironclad` project-root file convention: its first non-empty,
+  non-comment line fixes the intensity level for a whole project.
+  Precedence is an explicit session command, then the `.ironclad` file,
+  then the `full` default; an unrecognized value falls back to `full`.
+- Claude adapter commands `/ironclad core`, `/ironclad full`, and
+  `/ironclad max` to set the level per session, plus `/ironclad
+  intensity` as a readable topic.
+
+### Changed
+
+- `content/task-routing.md`: added an `Intensity` section explaining that
+  the active level filters the routing table's output and that the floor
+  always loads. The table itself is unchanged.
+- `adapters/claude/SKILL.md.template`: added a "Selecting the intensity
+  level" section, the `intensity.md` index row, the `intensity` topic
+  argument, and the level commands in `when_to_use`.
+- `adapters/copilot/instructions.md.template` and
+  `adapters/codex/AGENTS.md.template`: inlined the intensity rule, kept
+  compact in the Codex adapter for the 32 KB cap.
+- `README.md`: added the `intensity.md` index row and an "Intensity
+  levels" section.
+- Committed as `feat(intensity): ...`, which bumps the minor version
+  (1.1.0 to 1.2.0) via the `pre-push` hook on push. `VERSION` was not
+  edited by hand, to avoid a double bump.
+
+## 2026-09-27 (time not captured)
+
+**Author:** Patrick de Souza Teixeira
+
+### Added
+
+- `ROADMAP.md`: tracks pending work toward a public release, and a
+  separate short list of ballet-school-specific operational follow-ups
+  that do not belong in this repository's own roadmap.
+
+## 2026-09-27 (time not captured)
+
+**Author:** Patrick de Souza Teixeira
+
+### Added
+
+- `content/frontend.md`: new file, standards for client-side and
+  rendering-layer implementation. Covers XSS/output escaping (never
+  render unsanitized data via `dangerouslySetInnerHTML`, `innerHTML`,
+  `v-html`, or equivalent; sanitize raw HTML through an allow-list
+  sanitizer, never strip-tags or regex), third-party script integrity
+  (Subresource Integrity hashes) and a ban on `eval()`/dynamic
+  execution of external data, client-side storage rules (no secrets in
+  `localStorage`/`sessionStorage`), and component structure guidance.
+  Propagated into `content/task-routing.md`, `adapters/claude/
+SKILL.md.template` (index and topic arguments), `adapters/copilot/
+instructions.md.template`, `adapters/codex/AGENTS.md.template`, and
+  `README.md`.
+
+### Changed
+
+- `content/security.md`: checklist expanded from 21 to 26 items, adding
+  CSRF (item 22), XSS (item 23), CORS (item 24), Subresource Integrity
+  (item 25), and dynamic code execution (item 26). `Related` line
+  updated to include `frontend.md`.
+- `content/backend.md`: added sections for CSRF (synchronizer token or
+  double-submit pattern, `SameSite` alone called out as insufficient),
+  CORS (explicit origin allow-list, never a wildcard combined with
+  credentials), and dynamic code execution, covering the risk across
+  multiple language ecosystems (`eval`/`exec` in Python, JavaScript, and
+  Ruby; unrestricted deserialization in Python's `pickle`, PHP's
+  `unserialize`, and Java's native `ObjectInputStream`; Java's JSR 223
+  `ScriptEngine`, Spring Expression Language injection, and JNDI lookup
+  injection, the mechanism behind Log4Shell).
+
+## 2026-09-27 (time not captured)
+
+**Author:** Patrick de Souza Teixeira
+
+### Changed
+
+Generalized content that had assumed this repository's original
+project (a ballet school) as a universal fact instead of a
+project-specific condition, found during a public-release readiness
+review. This was a real gap: the project's own README describes
+Ironclad as portable across any project, but four files baked in
+assumptions specific to one, which would have given wrong guidance to
+anyone installing this on a different kind of project.
+
+- `content/lgpd.md`: reframed from asserting "this project's users are
+  mostly minors" as fact, to a conditional structure, apply data
+  protection principles appropriate to whatever jurisdiction and user
+  base a given project actually has, with a clearly separated section
+  for the extra guardian-consent and minimization rules that apply
+  specifically when a project's users do include minors.
+- `content/resilience.md`: reframed from asserting "this project does
+  not process payments" as fact, to a conditional check: whether the
+  heavier resilience patterns (circuit breakers, bulkheads, dead-letter
+  queues) are warranted now depends on a given project's actual risk
+  profile, not an assumption carried over from one project.
+- `content/testing.md`: minimum coverage floor changed from a fixed
+  95% for every project, to an explicit, project-specific floor with
+  an 80% default when none has been set, 80% chosen as a widely
+  recognized general baseline rather than a number picked for any one
+  project's risk profile.
+- `content/task-routing.md`, `content/ai-usage-policy.md`,
+  `README.md`: generalized remaining "student or guardian" and
+  "minors and guardians" language to "personal data (student/guardian
+  data, or any other personal data this project handles)", keeping the
+  concrete example while no longer stating it as the only case.
+- `adapters/claude/SKILL.md.template`: generalized the frontmatter
+  `description`, and corrected two index-table lines that had gone
+  stale, `lgpd.md`'s description and `testing.md`'s reference to a
+  fixed 95% floor.
+- `adapters/copilot/instructions.md.template`,
+  `adapters/codex/AGENTS.md.template`: generalized the same "student or
+  guardian" language inlined in each adapter's own copy of these rules.
+
 ## 2026-09-13 ~20:51 (from terminal clock, approximate)
 
 **Author:** Patrick de Souza Teixeira
