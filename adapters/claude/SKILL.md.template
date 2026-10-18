@@ -68,13 +68,18 @@ what is available, not a request to apply a rule yet.
 ## When you are invoking this skill yourself, automatically
 
 Do not stop at the index in this case, that behavior is reserved for a
-user typing the bare command. Instead, look at the task you are about to
-do, match it against `task-routing.md`, read every file it points to for
-that task type, and proceed applying their rules. If the task spans more
-than one topic, for example an endpoint that also queries the database,
-read every file every matching row points to, not just the first match.
-If you are genuinely unsure which row applies, read `review-checklist.md`
-as a safe general default rather than skipping standards entirely.
+user typing the bare command. First determine the active intensity using
+the rules above. Then match the task against `task-routing.md` and apply
+that intensity to every matching row before reading its files: at
+`core`, read only the single most task-specific file from each row; at
+`full`, read every file the row points to; at `max`, also read
+`review-checklist.md` and treat the coverage floor in `testing.md` as
+mandatory. If the task spans more than one topic, for example an endpoint
+that also queries the database, apply the active intensity to every
+matching row, not just the first. Always read the security floor as
+described above. If you are genuinely unsure which row applies, read
+`review-checklist.md` as a safe general default rather than skipping
+standards entirely.
 
 ## When an explicit topic argument is given
 

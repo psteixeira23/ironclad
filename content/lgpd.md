@@ -2,9 +2,11 @@
 
 If this project processes personal data, apply data protection
 principles appropriate to the relevant jurisdiction: LGPD (Lei Geral de
-Proteção de Dados) in Brazil, GDPR in the EU, CCPA in the US, or the
-equivalent wherever the project's users are. Do not assume which one
-applies, check the project's actual user base and jurisdiction.
+Proteção de Dados) in Brazil, GDPR in the EU, CCPA/CPRA in California,
+or the equivalent wherever the project's users are. For users in other
+US states, determine the applicable federal and state requirements. Do
+not assume which rules apply, check the project's actual user base and
+jurisdiction.
 
 - **Data minimization.** Collect only what the stated purpose actually
   requires. Do not repurpose data collected for one stated reason (say,
