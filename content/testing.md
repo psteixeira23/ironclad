@@ -37,14 +37,28 @@
   but must not be the only tests covering business rules. Business logic
   needs fast, isolated unit coverage in addition to integration coverage.
 
-## Minimum coverage floor: 95%.
+## Minimum coverage floor
 
-This is a floor, not a target to optimize toward. Treat any test written
-to close a coverage gap with the same scrutiny as any other test: it must
-actually fail if the logic it covers is wrong. A high coverage number
-produced by shallow, assertion-free tests is a worse outcome than a lower
-number produced by tests that genuinely verify behavior. When coverage
-and test quality conflict, quality wins, and that conflict itself is
-worth flagging rather than resolving silently in favor of the number.
+Set an explicit minimum coverage floor for this project, and treat it
+as a floor, not a target to optimize toward. There is no single number
+that fits every project: a project handling personal data, payments,
+or safety-critical logic warrants a high floor, explicitly stated for
+that project; an early-stage prototype being actively reshaped warrants
+a lower one so the number does not become a reason to write shallow
+tests just to hit it.
+
+If no floor has been set for this project, default to 80%, a widely
+recognized general baseline, not a number chosen for any specific
+project's risk profile. Treat this default as a starting point to
+revisit once the project's actual risk profile is clear, not as a
+permanent substitute for deciding deliberately.
+
+Whatever the floor is, treat any test written to close a coverage gap
+with the same scrutiny as any other test: it must actually fail if the
+logic it covers is wrong. A high coverage number produced by shallow,
+assertion-free tests is a worse outcome than a lower number produced by
+tests that genuinely verify behavior. When coverage and test quality
+conflict, quality wins, and that conflict itself is worth flagging
+rather than resolving silently in favor of the number.
 
 Related: `architecture.md`, `review-checklist.md`, `ai-usage-policy.md`.

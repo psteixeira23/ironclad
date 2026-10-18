@@ -13,10 +13,37 @@ and how the AI assistant itself should behave while working.
 - AI-generated code goes through the same review, the same tests, and the
   same standards as manually written code. It is not exempt from any rule
   in this content set.
-- Never paste real student or guardian personal data into a chat session
-  to debug an issue. Use synthetic or anonymized data, see `lgpd.md`.
+- Never paste real personal data (student/guardian data, or any other
+  personal data this project handles) into a chat session to debug an
+  issue. Use synthetic or anonymized data, see `lgpd.md`.
 
 ## Part 2: How the assistant should operate
+
+### Grounding and uncertainty
+
+Do not reference or call a function, method, class, flag, environment
+variable, file path, configuration key, or library API that you have not
+confirmed exists. Confirm it in the actual code or the library's current
+documentation, not from memory, which goes stale and produces
+plausible-looking names that do not exist. An invented symbol that merely
+looks correct is the most common failure in AI-generated code.
+
+When stating a fact about the codebase (that something is configured in a
+given file, that one function calls another, that a value comes from a
+particular place), point to the source: the file, and the line or symbol.
+A claim a reviewer can check in one step is worth more than a confident
+assertion they have to take on trust.
+
+When you do not know something and cannot verify it in the available code
+or documentation, say so and check, or ask. Do not fill the gap with a
+plausible guess presented as fact. "I need to confirm X before using it"
+is a correct and useful answer; a fabricated X that fails at runtime is
+not.
+
+This generalizes the versioning rule below: verify against the real
+artifact, not against training data, for symbols and APIs just as for
+version-support status. The quality gate in `quality-gate.md` is what
+enforces this automatically, for the cases a rule alone does not catch.
 
 ### Confirmation protocol
 
@@ -74,9 +101,25 @@ applies to comments, commit messages, generated documentation, and
 conversational replies, not only to files in `content/`.
 
 This is not the same rule as terse-for-its-own-sake writing. Keep the
-reasoning that explains *why* a rule exists, that is what makes a
+reasoning that explains _why_ a rule exists, that is what makes a
 standard teachable rather than a command to obey blindly. Cut the words
 that carry no meaning; keep the ones that carry the reason.
+
+### Working economy
+
+Distinct from writing economy above, which is about words. This is about
+not wasting the work itself:
+
+- Read the part of a file the task needs (a search, a line range), not
+  the whole file, and do not re-read what is already available in the
+  current context.
+- When changing code, show the changed region or a diff, not a full
+  reprint of an unchanged file.
+- Do not echo the request back before answering it.
+
+Spend the saved effort where it matters: on the grounding above. Reading
+the real code to confirm a symbol exists is not waste, it is the point.
+Cheap on output, never cheap on verification.
 
 ### Versioning and upgrades
 
@@ -89,4 +132,4 @@ patch that fixes a known vulnerability is the exception to the plan-first
 rule above, since the risk of staying vulnerable usually outweighs the
 risk of the bump, but still report what was updated and why.
 
-Related: `lgpd.md`, `language.md`, `review-checklist.md`.
+Related: `lgpd.md`, `language.md`, `review-checklist.md`, `quality-gate.md`.
