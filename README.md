@@ -67,6 +67,23 @@ node install.js
 
 The installer asks which harness(es) to set up and installs at the global scope. No project-specific configuration is required.
 
+## Support
+
+If Ironclad saves you time, you can buy the developer a coffee. It is
+optional and always will be. The project stays free and MIT-licensed
+either way.
+
+![Buy me a coffee](assets/ironclad-coffee-button.png)
+
+**Pix (Brazil).** Copy and paste the code below into your bank app, or
+send to the random Pix key directly:
+
+```
+00020126580014br.gov.bcb.pix01368dd49726-758c-46e2-b096-2b6fd54dd07a5204000053039865802BR5908IRONCLAD6009SAO PAULO62070503***6304ACBD
+```
+
+Pix key (random): `8dd49726-758c-46e2-b096-2b6fd54dd07a`
+
 ## Checking the installed version
 
 ```bash
