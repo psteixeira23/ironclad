@@ -1,5 +1,7 @@
 # Ironclad
 
+![Ironclad logo](assets/ironclad-logo.png)
+
 [![CI](https://github.com/psteixeira23/ironclad/actions/workflows/ci.yml/badge.svg)](https://github.com/psteixeira23/ironclad/actions/workflows/ci.yml)
 
 Ironclad is a portable engineering governance toolkit for AI coding agents. It keeps a consistent set of architecture, security, testing, and process rules in one place, and installs a thin, harness-specific adapter for whichever AI coding tool you use, so the same standards apply everywhere without being rewritten per project or per tool.
