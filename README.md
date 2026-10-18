@@ -1,5 +1,7 @@
 # Ironclad
 
+[![CI](https://github.com/psteixeira23/ironclad/actions/workflows/ci.yml/badge.svg)](https://github.com/psteixeira23/ironclad/actions/workflows/ci.yml)
+
 Ironclad is a portable engineering governance toolkit for AI coding agents. It keeps a consistent set of architecture, security, testing, and process rules in one place, and installs a thin, harness-specific adapter for whichever AI coding tool you use, so the same standards apply everywhere without being rewritten per project or per tool.
 
 ## Why the name
@@ -43,9 +45,11 @@ Ironclad keeps the actual rules in one place, [`content/`](content/), and genera
 
 | Harness        | Status                                                                                                                                            |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Claude Code    | Supported: installs as a personal skill (`/ironclad`)                                                                                             |
-| GitHub Copilot | Supported for always-on instructions; on-demand `/ironclad` invocation is currently limited to repository scope, see `adapters/copilot/README.md` |
-| OpenAI Codex   | Supported via global `AGENTS.md`; subject to a 32 KB instruction file limit, see `adapters/codex/README.md`                                       |
+| Claude Code    | Tested: installs as a personal skill (`/ironclad`)                                                                                            |
+| GitHub Copilot | Tested for always-on instructions; on-demand `/ironclad` invocation is limited to repository scope, see `adapters/copilot/README.md`           |
+| OpenAI Codex   | Tested via global `AGENTS.md`; subject to a 32 KB instruction file limit, see `adapters/codex/README.md`                                       |
+
+Installation is exercised in CI on Linux, macOS, and Windows, see "Testing" below.
 
 ## Getting started
 
@@ -65,6 +69,20 @@ ironclad --version
 ```
 
 Reports the version currently installed on this machine (from `~/.ironclad/VERSION`, written by the installer), not necessarily whatever this repository's checkout currently has. Re-run the installer after pulling changes to update it.
+
+## Testing
+
+Two suites guard the mechanism:
+
+- An installer smoke test runs the installer into an isolated home
+  directory and asserts it lands the expected files for all three
+  harnesses. Run it with `cd installer && npm test`.
+- A hook test drives the `pre-push` version-bump logic through `fix`,
+  `feat`, breaking, no-op, and idempotent cases. Run it with
+  `bash scripts/test-hook.sh`.
+
+Both run in CI on every push and pull request: the installer smoke test
+on Linux, macOS, and Windows, the hook test on Linux and macOS.
 
 ## Versioning
 

@@ -11,6 +11,39 @@ hour ago," "2 hours ago"), the computed time is marked approximate.
 Where no screenshot evidence exists for an entry, only the date is
 given, inferred from the confirmed entries immediately around it.
 
+## 2026-10-18 01:06 (America/Sao_Paulo)
+
+**Author:** Patrick de Souza Teixeira
+
+### Added
+
+- `installer/test/smoke.test.js`: installer smoke test. Runs the
+  interactive installer (feeding "4" to select all harnesses) into an
+  isolated temporary home directory and asserts it lands the canonical
+  content, the Claude skill, the `bin` command, and the Codex and Copilot
+  files, at the correct per-platform paths. No test framework, plain
+  `node:assert`.
+- `scripts/test-hook.sh`: integration test for the `pre-push`
+  version-bump hook, covering `fix`, `feat`, breaking, no-op, and
+  idempotent cases against throwaway git repositories.
+- `.github/workflows/ci.yml`: CI running the smoke test on Linux, macOS,
+  and Windows, and the hook test on Linux and macOS, on every push to
+  `main` and every pull request.
+- `SECURITY.md`: vulnerability reporting policy via GitHub private
+  reporting, with scope.
+- `CONTRIBUTING.md`: the single-source-of-truth rule, the content-versus-
+  mechanism review bars, Conventional Commit requirement, and how to run
+  the tests.
+
+### Changed
+
+- `installer/package.json`: added a `test` script running the smoke test.
+- `README.md`: harness matrix changed from "Supported" to "Tested" for
+  all three harnesses (manually validated on each, plus Windows), added a
+  CI badge, and added a "Testing" section.
+- This is project infrastructure and documentation, committed as `ci:`,
+  which does not bump the product version. `VERSION` was not edited.
+
 ## 2026-09-13 ~20:51 (from terminal clock, approximate)
 
 **Author:** Patrick de Souza Teixeira

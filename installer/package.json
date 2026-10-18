@@ -5,7 +5,8 @@
   "private": true,
   "main": "install.js",
   "scripts": {
-    "install-ironclad": "node install.js"
+    "install-ironclad": "node install.js",
+    "test": "node test/smoke.test.js"
   },
   "engines": {
     "node": ">=18"
