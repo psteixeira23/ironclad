@@ -11,6 +11,37 @@ hour ago," "2 hours ago"), the computed time is marked approximate.
 Where no screenshot evidence exists for an entry, only the date is
 given, inferred from the confirmed entries immediately around it.
 
+## 2026-10-31 (time not captured)
+
+**Author:** Patrick de Souza Teixeira
+
+### Added
+
+- `content/plan.md`: new topic. A planning and alignment protocol run
+  before coding on a non-trivial task: resolve ambiguity by asking one
+  question at a time, resolve the requirement, acceptance criteria, seam,
+  data shape, and non-goals, then write a short plan (files, approach,
+  trade-off, test strategy, non-goals) and wait for an explicit go-ahead.
+  Does not run for clear, low-risk changes. This turns the confirmation
+  protocol, previously only described in `ai-usage-policy.md`, into an
+  explicit, invokable step.
+- `adapters/claude/SKILL.md.template`: a `/ironclad plan` command that
+  runs the protocol on demand, the `plan` topic argument, the `plan.md`
+  index row, and a note in the auto-invocation path to plan before coding
+  when the confirmation protocol applies.
+
+### Changed
+
+- `content/ai-usage-policy.md`: the confirmation protocol now points to
+  `plan.md` for how to align before coding.
+- `content/task-routing.md`: added a planning row, listed first.
+- `adapters/copilot/instructions.md.template` and
+  `adapters/codex/AGENTS.md.template`: added the planning routing row and
+  a condensed note pointing to `plan.md`.
+- `README.md`: added the `plan.md` index row.
+- Committed as `feat`, which bumps the minor version (1.2.0 to 1.3.0) via
+  the `pre-push` hook. `VERSION` was not edited by hand.
+
 ## 2026-10-18 01:06 (America/Sao_Paulo)
 
 **Author:** Patrick de Souza Teixeira

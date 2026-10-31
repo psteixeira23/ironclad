@@ -23,6 +23,7 @@ Ironclad keeps the actual rules in one place, [`content/`](content/), and genera
   | File                  | Covers                                                                                                                                        |
   | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
   | `language.md`         | English-only rule for all project content and output.                                                                                         |
+  | `plan.md`             | Alignment protocol run before coding: one question at a time, a short plan, then a go-ahead.                                                  |
   | `intensity.md`        | The three intensity levels (core, full, max) and how the active level is selected.                                                           |
   | `architecture.md`     | Layered architecture, dependency rule, SOLID.                                                                                                 |
   | `backend.md`          | Server-side validation, IDOR, mass assignment, error handling, sessions, passwords, CSRF, CORS, SSRF, path traversal, dynamic code execution. |

@@ -47,6 +47,7 @@ what is available, not a request to apply a rule yet.
 | File | Covers |
 |---|---|
 | `language.md` | English-only rule for all project content and output. |
+| `plan.md` | Alignment protocol: one question at a time, a short written plan, and a go-ahead before coding. |
 | `intensity.md` | The three intensity levels (core, full, max) and how the active level is selected. |
 | `architecture.md` | Layered architecture, dependency rule, SOLID. |
 | `backend.md` | Server-side validation, IDOR, mass assignment, error handling, sessions, passwords, CSRF, CORS, SSRF, path traversal, dynamic code execution. |
@@ -80,15 +81,23 @@ matching row, not just the first. Always read the security floor as
 described above. If you are genuinely unsure which row applies, read
 `review-checklist.md` as a safe general default rather than skipping
 standards entirely.
+When the task is one the confirmation protocol in `ai-usage-policy.md` covers, read `plan.md` and run the alignment protocol before writing code.
 
 ## When an explicit topic argument is given
 
-One or more of: `architecture`, `backend`, `frontend`, `database`,
+One or more of: `architecture`, `plan`, `backend`, `frontend`, `database`,
 `security`, `testing`, `observability`, `resilience`, `lgpd`, `debug`,
 `refactor`, `commits`, `intensity`, `quality-gate`, `review` (maps to `review-checklist.md`). Read
 every file named, plus `ai-usage-policy.md` and `language.md`, and
 apply them to the current task. Multiple topics may be given together,
 for example `/ironclad backend database`.
+
+## `/ironclad plan`
+
+Read `plan.md` and `ai-usage-policy.md`, and run the alignment protocol
+for the task at hand: ask one question at a time, resolve only what
+changes the implementation, then present the short plan and stop for an
+explicit go-ahead before writing any code.
 
 ## `/ironclad review`
 

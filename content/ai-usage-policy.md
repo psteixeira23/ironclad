@@ -61,7 +61,10 @@ short written plan and explicit go-ahead is required before coding for
 A plan is not required for bug fixes with a clear reproduction, adding a
 missing test, small isolated functions, or formatting. When a plan is
 required, keep it short: files to touch, approach, and any trade-off,
-then wait for a reply before writing code.
+then wait for a reply before writing code. When a plan is required, follow
+the alignment protocol in `plan.md`: resolve the ambiguity by asking one
+question at a time, then present a short plan and wait for the go-ahead.
+The `/ironclad plan` command runs this on demand.
 
 ### Assumptions
 

@@ -17,6 +17,7 @@ mandatory. The level filters this table's output, it does not replace it.
 
 | Task type                                                                                                | Read                                     |
 | -------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| Planning or aligning on a non-trivial task before writing code                                           | plan.md, ai-usage-policy.md              |
 | API or backend implementation                                                                            | architecture.md, backend.md              |
 | Frontend, UI, or rendering-layer work                                                                    | architecture.md, frontend.md             |
 | Database or query work                                                                                   | architecture.md, database.md             |
