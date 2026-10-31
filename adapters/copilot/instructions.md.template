@@ -32,7 +32,9 @@ across contributors who do not share a first language.
   existing code, major version upgrades of a language/runtime/framework,
   or any genuinely ambiguous requirement. Not required for bug fixes with
   a clear reproduction, a missing test, small isolated functions, or
-  formatting.
+  formatting. When a plan is required, align first by asking one question
+  at a time, then present a short plan and wait, see
+  `{{CONTENT_DIR}}/plan.md`.
 - State low-stakes assumptions in one line instead of silently picking
   one or stopping to ask.
 - If the same approach fails twice in a row, stop and report instead of
@@ -73,6 +75,7 @@ task type, they apply to everything.
 
 | Task type | Read |
 |---|---|
+| Planning or aligning on a non-trivial task before writing code | {{CONTENT_DIR}}/plan.md, {{CONTENT_DIR}}/ai-usage-policy.md |
 | API or backend implementation | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/backend.md |
 | Frontend, UI, or rendering-layer work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/frontend.md |
 | Database or query work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/database.md |

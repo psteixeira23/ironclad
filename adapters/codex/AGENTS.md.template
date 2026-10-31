@@ -30,7 +30,9 @@ writes their prompts in.
   for schema changes, new dependencies, architectural decisions,
   significant restructuring, major version upgrades, or genuinely
   ambiguous requirements. Not required for clear bug fixes, missing
-  tests, small isolated functions, or formatting.
+  tests, small isolated functions, or formatting. When a plan is required,
+  align one question at a time, then present a short plan and wait (see
+  `{{CONTENT_DIR}}/plan.md`).
 - State low-stakes assumptions in one line instead of silently picking
   one or stopping to ask.
 - If the same approach fails twice in a row, stop and report instead of
@@ -65,6 +67,7 @@ Read `{{CONTENT_DIR}}/ai-usage-policy.md` and
 
 | Task type | Read |
 |---|---|
+| Planning or aligning on a non-trivial task before writing code | {{CONTENT_DIR}}/plan.md, {{CONTENT_DIR}}/ai-usage-policy.md |
 | API or backend implementation | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/backend.md |
 | Frontend, UI, or rendering-layer work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/frontend.md |
 | Database or query work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/database.md |
