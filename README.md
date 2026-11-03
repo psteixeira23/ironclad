@@ -1,5 +1,6 @@
 # Ironclad
 
+![Ironclad, guarded by Sir Clad](assets/ironclad-readme-banner.png)
 ![Ironclad logo](assets/ironclad-logo.png)
 
 [![CI](https://github.com/psteixeira23/ironclad/actions/workflows/ci.yml/badge.svg)](https://github.com/psteixeira23/ironclad/actions/workflows/ci.yml)
