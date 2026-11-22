@@ -5,12 +5,27 @@
 
 [![CI](https://github.com/psteixeira23/ironclad/actions/workflows/ci.yml/badge.svg)](https://github.com/psteixeira23/ironclad/actions/workflows/ci.yml)
 
-Ironclad is a portable engineering governance toolkit for AI coding agents. It keeps a consistent set of architecture, security, testing, and process rules in one place, and installs a thin, harness-specific adapter for whichever AI coding tool you use, so the same standards apply everywhere without being rewritten per project or per tool.
+Ironclad is a portable engineering governance toolkit for AI coding agents. It keeps a consistent set of architecture, security, testing, and process rules in one place, and installs a thin, harness-specific adapter for whichever AI coding tool you use, so the same standards apply everywhere without being rewritten per project or per tool. Two things put that toolkit in charge rather than just on the record:
 
-**New in 1.4.0:**
+- **An intensity dial that governs how the agent works, not only which files it reads.** `core` plans and asks less, deferring to the escalation order in `ai-usage-policy.md`; `max` runs the alignment protocol on every non-trivial task and reviews its own output before calling anything done. The confirmation protocol for schema changes, new dependencies, and anything else irreversible holds the same at every level, see "Intensity levels" below.
+- **A done gate the agent has to pass before reporting a task complete.** Tests claimed to pass were actually run and read, nothing is stubbed or left as a TODO, every symbol it referenced was confirmed to exist, and the change touched only what the task asked for, at every intensity level, see "Intensity levels" below.
 
-- **The intensity dial now governs behavior, not only which files load.** `core` plans and asks less, deferring to the escalation order in `ai-usage-policy.md`; `max` runs the alignment protocol on every non-trivial task and reviews its own output before calling anything done. The confirmation protocol for schema changes, new dependencies, and anything else irreversible holds the same at every level, see "Intensity levels" below.
-- **A task is not done until it passes the done gate.** Before reporting completion, the assistant checks that tests were actually run and read, nothing is stubbed or left as a TODO, every symbol it referenced was confirmed to exist, and the change touched only what the task asked for, at every intensity level, see "Intensity levels" below.
+## Support
+
+If Ironclad saves you time, you can buy the developer a coffee. It is
+optional and always will be. The project stays free and MIT-licensed
+either way.
+
+![Buy me a coffee](assets/ironclad-coffee-button.png)
+
+**Pix (Brazil).** Copy and paste the code below into your bank app, or
+send to the random Pix key directly:
+
+```
+00020126580014br.gov.bcb.pix01368dd49726-758c-46e2-b096-2b6fd54dd07a5204000053039865802BR5908IRONCLAD6009SAO PAULO62070503***6304ACBD
+```
+
+Pix key (random): `8dd49726-758c-46e2-b096-2b6fd54dd07a`
 
 ## Why the name
 
@@ -74,23 +89,6 @@ node install.js
 ```
 
 The installer asks which harness(es) to set up and installs at the global scope. No project-specific configuration is required.
-
-## Support
-
-If Ironclad saves you time, you can buy the developer a coffee. It is
-optional and always will be. The project stays free and MIT-licensed
-either way.
-
-![Buy me a coffee](assets/ironclad-coffee-button.png)
-
-**Pix (Brazil).** Copy and paste the code below into your bank app, or
-send to the random Pix key directly:
-
-```
-00020126580014br.gov.bcb.pix01368dd49726-758c-46e2-b096-2b6fd54dd07a5204000053039865802BR5908IRONCLAD6009SAO PAULO62070503***6304ACBD
-```
-
-Pix key (random): `8dd49726-758c-46e2-b096-2b6fd54dd07a`
 
 ## Checking the installed version
 
