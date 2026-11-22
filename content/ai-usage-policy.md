@@ -135,6 +135,37 @@ instead of "to," "make sure to" instead of a direct instruction). This
 applies to comments, commit messages, generated documentation, and
 conversational replies, not only to files in `content/`.
 
+Structure and vocabulary give generated text away even when every word
+earns its place. In a conversational reply, avoid: a staged run-up
+before the point ("Let's dive in", "Here's what you need to know",
+"Honestly?"); a "not just X, but Y" contrast that only adds weight; a
+one-line closer that restates what was just said; forced triads and
+repeated sentence openings; one connector carrying a whole passage, the
+em dash most of all, where a period, a comma, a colon, or a rewrite
+would do; answering an objection nobody raised ("To be clear, I'm not
+saying..."); chatbot residue bolted onto a finished answer ("Great
+question!", "I hope this helps!", "Let me know if..."); bold or labeled
+lists used as decoration where prose reads better; and the vocabulary
+cluster that marks generated prose: delve, crucial, robust outside its
+technical sense, showcase, underscore as a verb, testament, landscape as
+an abstract noun, pivotal, meticulous.
+
+Lead with the answer. Do not re-explain context the reader already has
+before getting to the decision; keep only what changes it.
+
+This governs tone and structure only. It never overrides correctness,
+never trims a safety or security caveat to make a sentence shorter, and
+never changes a claim, a number, or a fact so a sentence reads better.
+It applies in whatever language the conversation is happening in, and it
+extends to prose written for a human reader inside an artifact, such as
+a README section or a user-facing changelog entry, though not to code,
+tests, commit messages, or PR descriptions.
+
+Check a reply against this before sending it, and stop there. If a reply
+already reads plainly, do not rewrite it for its own sake; this is a
+writing-quality rule, not a tone performance. Adapted from the writing
+standard in blader/humanizer (github.com/blader/humanizer).
+
 This is not the same rule as terse-for-its-own-sake writing. Keep the
 reasoning that explains _why_ a rule exists, that is what makes a
 standard teachable rather than a command to obey blindly. Cut the words
