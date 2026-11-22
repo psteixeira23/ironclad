@@ -7,6 +7,11 @@
 
 Ironclad is a portable engineering governance toolkit for AI coding agents. It keeps a consistent set of architecture, security, testing, and process rules in one place, and installs a thin, harness-specific adapter for whichever AI coding tool you use, so the same standards apply everywhere without being rewritten per project or per tool.
 
+**New in 1.4.0:**
+
+- **The intensity dial now governs behavior, not only which files load.** `core` plans and asks less, deferring to the escalation order in `ai-usage-policy.md`; `max` runs the alignment protocol on every non-trivial task and reviews its own output before calling anything done. The confirmation protocol for schema changes, new dependencies, and anything else irreversible holds the same at every level, see "Intensity levels" below.
+- **A task is not done until it passes the done gate.** Before reporting completion, the assistant checks that tests were actually run and read, nothing is stubbed or left as a TODO, every symbol it referenced was confirmed to exist, and the change touched only what the task asked for, at every intensity level, see "Intensity levels" below.
+
 ## Why the name
 
 An ironclad ship was armored to withstand what would sink an unprotected hull. The name is meant the same way here: a set of rules an AI coding agent cannot easily talk itself out of, sidestep under time pressure, or forget between sessions. The standards in `content/` exist so that architecture, security, and testing discipline hold up regardless of which project, which harness, or which conversation produced the code.
@@ -99,19 +104,31 @@ Reports the version currently installed on this machine (from `~/.ironclad/VERSI
 
 Ironclad runs at one of three levels, set per project by an `.ironclad`
 file at the project root (or per session with `/ironclad core|full|max`
-on Claude Code), defaulting to `full`:
+on Claude Code), defaulting to `full`. The level decides both how much
+guidance loads and how the agent works:
 
 - `core`: the security floor plus only the single most task-specific
-  file. Lowest token cost, for prototypes and throwaway work.
-- `full` (default): the floor plus every file a task maps to. The
-  standard behavior.
-- `max`: everything `full` loads, plus the review checklist applied
-  proactively and a mandatory coverage floor. For critical or
-  personal-data work.
+  file. The agent plans only when the requirement is genuinely
+  ambiguous after reading the code, and prefers stating an assumption
+  over asking. Lowest token cost and fewest interruptions, for
+  prototypes and throwaway work.
+- `full` (default): the floor plus every file a task maps to, with the
+  standard planning and confirmation behavior.
+- `max`: everything `full` loads, plus the alignment protocol on any
+  non-trivial task, the review checklist applied to the agent's own
+  output before it reports completion, and a mandatory coverage floor.
+  For critical or personal-data work.
+
+At every level, the agent applies the same criteria before reporting a
+task as done: the checks it claims passed were actually run and read,
+nothing is left stubbed or marked TODO, every symbol it referenced was
+confirmed to exist, and nothing outside the task was touched.
 
 The security floor (`ai-usage-policy.md`, `language.md`, `security.md`,
-and `lgpd.md` when personal data is involved) loads at every level; the
-dial never trades away safety. See `content/intensity.md`.
+and `lgpd.md` when personal data is involved) loads at every level, and
+no level relaxes confirmation for a schema change, a destructive
+migration, a new dependency, or anything else irreversible. The dial
+trades thoroughness for speed, never safety. See `content/intensity.md`.
 
 ## Testing
 

@@ -11,6 +11,33 @@ hour ago," "2 hours ago"), the computed time is marked approximate.
 Where no screenshot evidence exists for an entry, only the date is
 given, inferred from the confirmed entries immediately around it.
 
+## 2026-11-22 (second entry of the day, time not captured)
+
+**Author:** Patrick de Souza Teixeira
+
+### Added
+
+- `content/ai-usage-policy.md`: "Writing economy" now covers the
+  structure and vocabulary of generated prose, not only word-level
+  noise. Staged run-ups, "not just X, but Y" contrasts, restated
+  closers, forced triads, one connector carrying a passage, answering
+  objections nobody raised, chatbot residue, formatting used as
+  decoration, and the vocabulary cluster that marks AI prose (delve,
+  crucial, showcase, underscore as a verb, testament, landscape,
+  pivotal, meticulous). Also states the guardrail: the rule governs tone
+  and structure only, and never trims a safety caveat or alters a fact
+  to make a sentence read better. Adapted from the writing standard in
+  blader/humanizer.
+
+### Changed
+
+- `README.md`: the "Intensity levels" section described the dial as if
+  it only controlled which files load, which stopped being true in
+  1.4.0. It now states that the level also governs behavior, how `core`
+  plans and asks less while `max` plans and reviews more, that the done
+  criteria apply at every level, and that no level relaxes confirmation
+  for irreversible changes.
+
 ## 2026-11-22 (time not captured)
 
 **Author:** Patrick de Souza Teixeira
