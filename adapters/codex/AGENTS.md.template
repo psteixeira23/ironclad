@@ -71,6 +71,7 @@ Read `{{CONTENT_DIR}}/ai-usage-policy.md` and
 | API or backend implementation | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/backend.md |
 | Frontend, UI, or rendering-layer work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/frontend.md |
 | Database or query work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/database.md |
+| Concurrency, locking, or code that can run more than once at the same time | {{CONTENT_DIR}}/concurrency.md, {{CONTENT_DIR}}/database.md |
 | Authentication or security-sensitive work | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/security.md |
 | Writing or fixing tests | {{CONTENT_DIR}}/architecture.md, {{CONTENT_DIR}}/testing.md |
 | Debugging an issue or a production incident | {{CONTENT_DIR}}/debug.md, {{CONTENT_DIR}}/testing.md |

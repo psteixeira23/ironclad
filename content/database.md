@@ -44,7 +44,7 @@ clients = session.query(Client).filter(Client.id.in_(client_ids)).all()
 
 ## Preventing duplicate records under concurrency
 
-Two concurrent requests can both pass a "does this exist yet" check before either one has written anything, and both proceed to insert. This is the same check-then-act race condition described in `review-checklist.md`, and the database is where it is actually closed, not the application layer, an application-level check can never be atomic against another process doing the same check at the same time.
+Two concurrent requests can both pass a "does this exist yet" check before either one has written anything, and both proceed to insert. This is the insert shape of the check-then-act race described in `concurrency.md`, and the database is where it is actually closed, not the application layer, an application-level check can never be atomic against another process doing the same check at the same time. For the read-modify-write shape, where two requests both update a row that already exists, see `concurrency.md`.
 
 - Enforce the real constraint in the schema: a `UNIQUE` constraint (or a unique index, including a partial or composite one when uniqueness only applies under certain conditions) on whatever combination of columns must not repeat. This is the only way concurrent inserts have somewhere authoritative to conflict.
 - Prefer an atomic upsert over "check, then insert." In Postgres, `INSERT ... ON CONFLICT (columns) DO NOTHING` (or `DO UPDATE` when the second attempt should update instead of being silently dropped) resolves the race in the database itself, in a single statement, instead of a read followed by a write with a gap in between.
@@ -117,4 +117,4 @@ this causes.
   regression here; the test needs a real pooled connection under real
   concurrent load.
 
-Related: `architecture.md`, `backend.md`, `security.md`, `review-checklist.md`.
+Related: `architecture.md`, `backend.md`, `security.md`, `concurrency.md`, `review-checklist.md`.

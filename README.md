@@ -30,6 +30,7 @@ Ironclad keeps the actual rules in one place, [`content/`](content/), and genera
   | `backend.md`          | Server-side validation, IDOR, mass assignment, error handling, sessions, passwords, CSRF, CORS, SSRF, path traversal, dynamic code execution. |
   | `frontend.md`         | XSS/output escaping, client-side storage, third-party script integrity, component structure.                                                  |
   | `database.md`         | Schema design, indexing, N+1 prevention, migrations, Row Level Security, preventing duplicate records under concurrency.                      |
+  | `concurrency.md`      | Check-then-act in both shapes, atomic conditional updates, pessimistic and optimistic locking, concurrency testing.                           |
   | `security.md`         | Pre-launch and ongoing security checklist.                                                                                                    |
   | `testing.md`          | TDD, test scope, fragile tests, the coverage floor.                                                                                           |
   | `debug.md`            | Systematic debugging, local and production incidents.                                                                                         |

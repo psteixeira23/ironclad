@@ -52,6 +52,35 @@ SOLID and Clean Architecture are not a license for unnecessary abstraction. The 
 
 Before building new feature work, state what is explicitly out of scope alongside what is being built: which modes, configuration options, extensibility points, or polish are being omitted because the current requirement does not need them. Add a mode, a config surface, or a dependency later, when something concrete needs it, not in advance of that need.
 
+## What must not depend on the model being right
+
+When an AI agent is part of how the system runs, and not only part of how
+it was written, some of the application layer is a model deciding what to
+call. That makes one question worth asking of every rule: does this still
+hold if the model gets it wrong?
+
+Anything whose answer is "no" does not belong in the model's reasoning.
+It belongs somewhere deterministic that the model can only call, never
+re-derive:
+
+- Arithmetic that money depends on. A balance, a total, a proration is
+  computed by code or by the database and handed to the model, never
+  summed by the model from values in its context.
+- Invariants that must survive anything that writes to the data,
+  including another service, a script, or a person in a SQL console.
+  Those are constraints in the schema, see `database.md`.
+- Authorization. Whether this caller may perform this action is
+  evaluated server-side on every request, never inferred by the model
+  from the conversation, see `backend.md`.
+- Any step that is irreversible or expensive to undo. The model may
+  propose it; the system still requires the confirmation protocol in
+  `ai-usage-policy.md`.
+
+The model is allowed to be wrong. The system is not allowed to be wrong
+because the model was. A narrow deterministic tool for the model to call
+is how that line is held, and it is a cheaper defense than any amount of
+prompt wording.
+
 ## Related
 
 - `backend.md` for how these principles apply to service and API implementation.

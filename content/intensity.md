@@ -18,9 +18,9 @@ These load regardless of level. A lower intensity is never a reason to
 skip security or data-protection rules.
 
 **Adjustable depth (what the level acts on):** `architecture.md`,
-`backend.md`, `frontend.md`, `database.md`, `testing.md`, `debug.md`,
-`refactor.md`, `commits.md`, `observability.md`, `resilience.md`,
-`review-checklist.md`.
+`backend.md`, `frontend.md`, `database.md`, `concurrency.md`,
+`testing.md`, `debug.md`, `refactor.md`, `commits.md`,
+`observability.md`, `resilience.md`, `review-checklist.md`.
 
 ## Levels
 
