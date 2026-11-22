@@ -37,6 +37,24 @@
   but must not be the only tests covering business rules. Business logic
   needs fast, isolated unit coverage in addition to integration coverage.
 
+## Property-based testing
+
+Example-based tests check the cases somebody thought of. Property-based
+testing (Hypothesis, jqwik, fast-check, QuickCheck) generates inputs
+across the whole domain and checks that a stated property holds for all
+of them, which is how the boundary values nobody wrote a case for get
+found: zero, negative, empty, maximum, and the awkward values in
+between.
+
+Reach for it where a function has a clear invariant over a wide input
+domain, for example anything that parses, converts, rounds, or computes
+money. State the property ("a debit never increases a balance") instead
+of listing examples.
+
+It does not replace concurrency testing. Generated inputs still run
+sequentially, so a property-based suite cannot catch a race, see
+`concurrency.md`.
+
 ## Minimum coverage floor
 
 Set an explicit minimum coverage floor for this project, and treat it

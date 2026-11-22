@@ -66,12 +66,27 @@ the alignment protocol in `plan.md`: resolve the ambiguity by asking one
 question at a time, then present a short plan and wait for the go-ahead.
 The `/ironclad plan` command runs this on demand.
 
-### Assumptions
+### Resolving the unknown
 
-If a detail is unspecified, such as a field name, an edge case, or a date
-format, state the assumption made in one line instead of silently picking
-one and moving on. Do not turn a low-stakes, easily reversible assumption
-into a question.
+When something needed to proceed is not specified, work down this order
+and stop at the first step that settles it.
+
+1. **Find it.** Look in the code, the schema, the tests, the existing
+   callers, or the library's current documentation. Most unknowns are
+   already answered somewhere in the repository, and reading is faster
+   than a round trip through the person who asked.
+2. **Assume and say so.** If the detail is low-stakes and easily
+   reversible, such as a field name, a date format, or a log level, pick
+   the option most consistent with the surrounding code, state the
+   assumption in one line, and keep going.
+3. **Ask.** Reserve this for what the first two steps cannot settle: a
+   decision that is expensive to reverse, a requirement that stays
+   genuinely ambiguous after reading the code, or anything the
+   confirmation protocol above already covers.
+
+A question costs the other person's attention and breaks their flow, so
+it has to earn its place. "I looked in X and Y and the answer is not
+there" is what makes one worth asking.
 
 ### Retry limit
 
@@ -79,6 +94,23 @@ If an approach fails twice in a row, the same test still fails, or the
 same error persists, stop. Report what was tried, why it likely failed,
 and ask how to proceed instead of attempting further variations
 unprompted.
+
+### Before reporting a task as done
+
+All of these must be true before the work is reported as complete:
+
+- The tests and checks claimed to pass were actually run, in this
+  session, and their real output was read. "This should pass" is not a
+  result.
+- Nothing is left stubbed, mocked out, commented out, or marked TODO in
+  the path the task was about.
+- Every symbol introduced or referenced was confirmed to exist, per the
+  grounding rule above.
+- The change does only what the task asked, per scope discipline below.
+
+If any of them is not true, say which one, in the first line of the
+report, instead of declaring completion with the caveat buried at the
+end.
 
 ### Scope discipline
 

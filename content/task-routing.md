@@ -21,6 +21,7 @@ mandatory. The level filters this table's output, it does not replace it.
 | API or backend implementation                                                                            | architecture.md, backend.md              |
 | Frontend, UI, or rendering-layer work                                                                    | architecture.md, frontend.md             |
 | Database or query work                                                                                   | architecture.md, database.md             |
+| Concurrency, locking, or code that can run more than once at the same time                               | concurrency.md, database.md              |
 | Authentication or security-sensitive work                                                                | architecture.md, security.md             |
 | Writing or fixing tests                                                                                  | architecture.md, testing.md              |
 | Debugging an issue or a production incident                                                              | debug.md, testing.md                     |

@@ -59,9 +59,10 @@ current diff or recently changed files.
 - Thread safety: shared mutable state accessed by more than one
   concurrent execution unit without protection.
 - Race conditions: outcome depends on timing between concurrent
-  operations. The classic case is check-then-act without atomicity, for
-  example checking a record does not exist, then inserting it, without a
-  unique constraint or transaction backing that up.
+  operations. The two shapes to look for are check-then-insert without a
+  unique constraint, and read-modify-write on an existing row, where two
+  requests both read the same value and both write. See `concurrency.md`
+  for both and for how each is closed.
 - Inadequate synchronization: missing locks where shared state is
   modified, or synchronization so broad it defeats the point of
   concurrency.

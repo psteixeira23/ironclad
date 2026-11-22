@@ -53,6 +53,7 @@ what is available, not a request to apply a rule yet.
 | `backend.md` | Server-side validation, IDOR, mass assignment, error handling, sessions, passwords, CSRF, CORS, SSRF, path traversal, dynamic code execution. |
 | `frontend.md` | XSS/output escaping, client-side storage, third-party script integrity, component structure. |
 | `database.md` | Schema design, indexing, N+1 prevention, migrations, Row Level Security. |
+| `concurrency.md` | Race conditions in both shapes, locking strategies, and why a sequential test cannot catch either. |
 | `security.md` | Pre-launch and ongoing security checklist. |
 | `testing.md` | TDD, test scope, fragile tests, the coverage floor. |
 | `debug.md` | Systematic debugging, local and production incidents. |
@@ -82,12 +83,16 @@ described above. If you are genuinely unsure which row applies, read
 `review-checklist.md` as a safe general default rather than skipping
 standards entirely.
 When the task is one the confirmation protocol in `ai-usage-policy.md` covers, read `plan.md` and run the alignment protocol before writing code.
+Before reporting a task as done, apply the done criteria in
+`ai-usage-policy.md`: checks actually run, nothing stubbed or left as a
+TODO, every symbol confirmed, and nothing changed outside the task.
 
 ## When an explicit topic argument is given
 
 One or more of: `architecture`, `plan`, `backend`, `frontend`, `database`,
 `security`, `testing`, `observability`, `resilience`, `lgpd`, `debug`,
-`refactor`, `commits`, `intensity`, `quality-gate`, `review` (maps to `review-checklist.md`). Read
+`refactor`, `commits`, `intensity`, `quality-gate`, `concurrency`,
+`review` (maps to `review-checklist.md`). Read
 every file named, plus `ai-usage-policy.md` and `language.md`, and
 apply them to the current task. Multiple topics may be given together,
 for example `/ironclad backend database`.

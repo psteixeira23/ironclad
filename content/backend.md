@@ -16,6 +16,13 @@ described in `architecture.md`.
 - Request and response schemas are validated against a contract (Pydantic,
   JSON Schema, OpenAPI, or equivalent) at the boundary, not informally
   assumed from whatever code happens to produce them.
+- Validate the domain of a value, not only its type and presence. A
+  numeric field standing for an amount, a quantity, or a duration has a
+  valid sign and a valid range, and a schema that only says "decimal"
+  will accept a negative where the operation never meant to allow one.
+  State the bound explicitly at the boundary (greater than zero, within
+  a maximum) and back it with a `CHECK` constraint where the value is
+  stored, see `database.md`.
 
 ## Authorization
 
