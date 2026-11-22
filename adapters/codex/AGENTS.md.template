@@ -49,6 +49,7 @@ writes their prompts in.
 - Read only the slice of a file you need, do not re-read what is in
   context, show diffs not full reprints. Cheap on output, never cheap on
   verification.
+- Before reporting a task done: checks actually run and read, nothing stubbed or left TODO, every symbol confirmed, nothing touched outside the task.
 
 ### Intensity
 

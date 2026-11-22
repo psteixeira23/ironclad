@@ -53,6 +53,7 @@ across contributors who do not share a first language.
 - Read only the part of a file you need, do not re-read what is already
   in context, and show diffs rather than reprinting unchanged files.
   Cheap on output, never cheap on verification.
+- Before reporting a task done: checks actually run and read, nothing stubbed or left TODO, every symbol confirmed, nothing touched outside the task.
 
 ### Intensity
 

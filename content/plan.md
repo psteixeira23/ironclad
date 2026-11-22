@@ -61,5 +61,21 @@ corrected while correcting it is still cheap. Once the plan is agreed, the
 seam is agreed, which is exactly what sets up test-first work, see
 `testing.md`.
 
+## After the plan is agreed
+
+The plan is where the thinking starts, not where it ends.
+
+- Build in the smallest increment that can be verified on its own, and
+  verify it before starting the next one. One large change delivered in
+  a single piece hides which part broke.
+- Run the check that proves the increment works before moving on. If no
+  such check exists yet, writing it is the first increment, see
+  `testing.md`.
+- If the plan turns out to be wrong halfway through, stop and say so
+  rather than quietly building something else. The plan was agreed on;
+  a different plan has to be agreed on too.
+- When the last increment is done, apply the done criteria in
+  `ai-usage-policy.md` before reporting completion.
+
 Related: `ai-usage-policy.md`, `testing.md`, `architecture.md`,
 `task-routing.md`.

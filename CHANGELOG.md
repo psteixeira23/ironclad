@@ -11,6 +11,67 @@ hour ago," "2 hours ago"), the computed time is marked approximate.
 Where no screenshot evidence exists for an entry, only the date is
 given, inferred from the confirmed entries immediately around it.
 
+## 2026-11-22 (time not captured)
+
+**Author:** Patrick de Souza Teixeira
+
+### Added
+
+- `content/concurrency.md`: new topic. Concurrency guidance was split
+  between `database.md` and `review-checklist.md`, and both covered only
+  the insert shape of check-then-act. This file covers both shapes,
+  including the read-modify-write lost update that neither addressed,
+  the three ways to close it (atomic conditional update,
+  `SELECT ... FOR UPDATE`, optimistic version column), the distinction
+  between concurrency and reprocessing, and why a sequential test is
+  structurally unable to catch a race.
+- `content/architecture.md`: new section, "What must not depend on the
+  model being right", stating what has to live in deterministic code the
+  agent can only call: money arithmetic, schema invariants,
+  authorization, and irreversible steps.
+- `content/backend.md`: validation now covers the domain of a value
+  (sign and range), not only its type and presence.
+- `content/testing.md`: property-based testing, including the limit that
+  generated inputs still run sequentially and cannot catch a race.
+- `content/ai-usage-policy.md`: new "Before reporting a task as done"
+  criteria. Checks actually run rather than assumed, nothing stubbed or
+  left as a TODO, every symbol confirmed, and nothing changed outside
+  the task.
+- `content/plan.md`: new "After the plan is agreed" section covering
+  execution in verified increments, and what to do when the plan turns
+  out to be wrong mid-way.
+- `content/intensity.md`: the level now governs behavior, not only which
+  files load. `core` plans and asks less, `max` plans and reviews more,
+  and no level relaxes the confirmation protocol for irreversible
+  changes.
+
+### Changed
+
+- `content/ai-usage-policy.md`: the "Assumptions" section became
+  "Resolving the unknown", an explicit escalation order. Find it in the
+  code first, assume and state second, ask last. Asking is a cost to the
+  other person and has to earn its place.
+- `content/database.md` and `content/review-checklist.md`: the
+  race-condition passages now point to `concurrency.md` rather than
+  restating it, and name which shape they cover.
+- `content/task-routing.md`, the three adapter templates, and the README
+  file index: wired in the new topic and the done criteria.
+- Committed as two `feat` commits, content and behavior, which together
+  bump the minor version (1.3.0 to 1.4.0) via the `pre-push` hook.
+  `VERSION` was not edited by hand.
+
+### Credits
+
+These changes came out of public discussion of a code sample published
+on 2026-11-17 and 2026-11-19. Thanks to Leonardo Melo, who found the
+negative-amount defect now covered by the value-domain rule in
+`backend.md`; to Fellipe Tavares, who raised that the defect only
+surfaces under stress scenarios; to George Telles, for the
+property-based testing approach now in `testing.md`; and to Rodrigo
+Teixeira Ferreira, for the invariant rule and the criterion "what cannot
+depend on the model getting it right", which became the new section in
+`architecture.md`.
+
 ## 2026-10-31 (time not captured)
 
 **Author:** Patrick de Souza Teixeira

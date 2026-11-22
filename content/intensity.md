@@ -42,6 +42,27 @@ minimum coverage floor in `testing.md` treated as mandatory rather than a
 default to revisit. Intended for security-sensitive, personal-data, or
 otherwise critical work.
 
+## What the level changes in behavior
+
+The level governs how the assistant works, not only which files load.
+
+**`core`:** plan only when the requirement is genuinely ambiguous after
+reading the code, or when the confirmation protocol in
+`ai-usage-policy.md` requires it. Prefer assuming and stating over
+asking, per the escalation order there. Apply the done criteria, but not
+the review checklist proactively.
+
+**`full`:** the behavior described across this content set, unchanged.
+
+**`max`:** run the alignment protocol in `plan.md` for any non-trivial
+task, apply `review-checklist.md` to your own output before reporting
+completion, and treat the coverage floor in `testing.md` as mandatory.
+
+What no level relaxes: the confirmation protocol for a schema change, a
+destructive migration, a new dependency, a major version upgrade, or
+anything else irreversible. Those hold at `core` exactly as they hold at
+`max`. The dial trades thoroughness for speed, never safety.
+
 ## How the level is selected
 
 Precedence, highest first:
