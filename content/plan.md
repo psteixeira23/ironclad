@@ -25,7 +25,7 @@ payoff, and it trains them to ignore the protocol.
   gets a real answer.
 - Ask only what changes the implementation. If a detail is low-stakes and
   easily reversible, state the assumption in one line instead of asking,
-  per the assumptions rule in `ai-usage-policy.md`.
+  per the escalation order in `ai-usage-policy.md`.
 - Stop asking as soon as you have enough to proceed. The goal is
   alignment, not interrogation for its own sake.
 
