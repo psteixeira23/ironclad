@@ -17,9 +17,9 @@ given, inferred from the confirmed entries immediately around it.
 
 Todas as mudanças desta versão saem de falhas medidas num experimento
 cego de 40 execuções (10 tarefas de backend, com e sem a skill, duas
-repetições cada, Java 21 e Spring Boot 3, Claude Code com Sonnet). Os
-prompts, a rubrica, o harness e os dados crus estão em
-`experimento/rodada-2026-11-24/`.
+repetições cada, Java 21 e Spring Boot 3, Claude Code com Sonnet). O
+harness, os prompts, a rubrica e os dados crus ficam fora deste
+repositório, que guarda apenas a skill.
 
 ### Added
 
@@ -275,7 +275,7 @@ depend on the model getting it right", which became the new section in
   then the `full` default; an unrecognized value falls back to `full`.
 - Claude adapter commands `/ironclad core`, `/ironclad full`, and
   `/ironclad max` to set the level per session, plus `/ironclad
-  intensity` as a readable topic.
+intensity` as a readable topic.
 
 ### Changed
 
