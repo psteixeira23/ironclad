@@ -31,13 +31,17 @@ jurisdiction.
   someone adds to it later. A sensitive identifier (a national ID, a
   full document number) is masked unless the screen has a stated reason
   to show it in full.
-- **Deletion and retention are a design decision, not a DELETE.** When a
-  subject asks for erasure, separate what must still be kept by legal or
-  accounting obligation from what should go. Anonymize what has to
-  survive for aggregate or fiscal reasons, so the record stops being
-  personal data instead of disappearing. A silent hard delete of a row
-  other records point at trades a privacy problem for a referential
-  integrity problem.
+- **Every entity that stores personal data carries its purpose and its
+  retention period, written next to the declaration.** One line is
+  enough, and "indefinite, pending a business decision" is a valid
+  answer; an absent line is not. Without it, nobody downstream can tell
+  whether a record may be deleted, and the question resurfaces years
+  later with no one left who knows.
+- **Erasure is a design decision, not a DELETE.** Separate what a legal
+  or accounting obligation still requires from what should go, and
+  anonymize what has to survive, so the record stops being personal data
+  instead of disappearing. A silent hard delete of a row other records
+  point at trades a privacy problem for a referential integrity problem.
 - **Never paste real personal data into an AI chat session for
   debugging.** Use synthetic or anonymized data instead; see
   `ai-usage-policy.md` for the same rule stated from the AI-usage side.

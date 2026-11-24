@@ -11,6 +11,18 @@ hour ago," "2 hours ago"), the computed time is marked approximate.
 Where no screenshot evidence exists for an entry, only the date is
 given, inferred from the confirmed entries immediately around it.
 
+## 2026-11-24 (fix(content))
+
+**Author:** Patrick de Souza Teixeira
+
+### Changed
+
+- `content/lgpd.md`: a regra anterior de retenção marcou 0 de 2 em
+  verificação dirigida de 24/11. A reescrita troca uma instrução de
+  reflexão por um artefato exigido: finalidade e prazo de retenção
+  escritos junto à declaração de cada entidade que armazena dado
+  pessoal.
+
 ## 2026-11-24
 
 **Author:** Patrick de Souza Teixeira
