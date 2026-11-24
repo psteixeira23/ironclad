@@ -20,6 +20,28 @@ external dependency.
   request. If sending a confirmation email fails, the underlying action
   it confirms should still succeed where that is safe to do.
 
+## What comes back, and what comes in
+
+The rules above cover the call going out. These cover the other
+direction, which is where a trusted-looking payload becomes local state.
+
+- **A provider's response is untrusted input.** An HTTP status in the
+  success range means the call completed, not that the body is valid.
+  Check the fields the code is about to rely on before turning them into
+  local state: a missing or null field in a deserialized response
+  becomes a null deep inside the domain, far from the call that caused
+  it.
+- **An inbound event proves nothing by arriving.** A webhook, callback,
+  or queue message from outside this system has its authenticity
+  verified before it changes anything: a signature, an HMAC, or a shared
+  secret checked against the raw body, not a header anyone can set. An
+  endpoint that mutates state on an unverified POST is an open endpoint,
+  whatever the URL looks like.
+- **Every provider redelivers.** Inbound event handling is idempotent by
+  construction, under a unique constraint on the event's own identifier,
+  not by reading current state and deciding it looks already-processed.
+  See `concurrency.md` for why check-then-act is not enough here.
+
 ## Heavier patterns, only when the project's risk profile calls for it
 
 Circuit breakers, bulkheads, and dead-letter queues are patterns for
