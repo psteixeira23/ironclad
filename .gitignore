@@ -14,3 +14,7 @@ npm-debug.log*
 
 # Local scratch, never committed
 temp/
+experimento/
+
+# Generated installer test output
+installer/out/

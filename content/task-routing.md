@@ -18,9 +18,9 @@ mandatory. The level filters this table's output, it does not replace it.
 | Task type                                                                                                | Read                                     |
 | -------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
 | Planning or aligning on a non-trivial task before writing code                                           | plan.md, ai-usage-policy.md              |
-| API or backend implementation                                                                            | architecture.md, backend.md              |
+| API or backend implementation                                                                            | architecture.md, backend.md, testing.md  |
 | Frontend, UI, or rendering-layer work                                                                    | architecture.md, frontend.md             |
-| Database or query work                                                                                   | architecture.md, database.md             |
+| Database or query work                                                                                   | architecture.md, database.md, testing.md |
 | Concurrency, locking, or code that can run more than once at the same time                               | concurrency.md, database.md              |
 | Authentication or security-sensitive work                                                                | architecture.md, security.md             |
 | Writing or fixing tests                                                                                  | architecture.md, testing.md              |

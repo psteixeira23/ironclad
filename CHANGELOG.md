@@ -11,6 +11,53 @@ hour ago," "2 hours ago"), the computed time is marked approximate.
 Where no screenshot evidence exists for an entry, only the date is
 given, inferred from the confirmed entries immediately around it.
 
+## 2026-11-24
+
+**Author:** Patrick de Souza Teixeira
+
+Todas as mudanças desta versão saem de falhas medidas num experimento
+cego de 40 execuções (10 tarefas de backend, com e sem a skill, duas
+repetições cada, Java 21 e Spring Boot 3, Claude Code com Sonnet). Os
+prompts, a rubrica, o harness e os dados crus estão em
+`experimento/rodada-2026-11-24/`.
+
+### Added
+
+- `content/resilience.md`: nova seção "What comes back, and what comes
+  in". O arquivo cobria apenas a chamada de saída. Na tarefa de cobrança
+  Pix, 0 de 4 execuções validaram a resposta do provedor antes de
+  transformá-la em estado local; na de webhook, 2 de 4 aceitaram o evento
+  sem verificar assinatura.
+- `content/lgpd.md`: resposta de API como superfície de exposição. 0 de 4
+  execuções do cadastro de cliente devolveram DTO em vez da entidade, e
+  todas expuseram CPF completo, embora metade mascarasse corretamente no
+  log.
+- `content/lgpd.md`: exclusão, retenção e anonimização. 0 de 4 execuções
+  trataram prazo, finalidade ou anonimização.
+- `content/backend.md`: a identidade que decide autorização vem do
+  contexto autenticado do servidor. 0 de 4 execuções escaparam de confiar
+  num `X-User-Id` controlado pelo cliente, e todas haviam cumprido
+  corretamente a regra de verificação de propriedade que já existia: o
+  defeito estava na origem da identidade, não na verificação.
+
+### Changed
+
+- `content/task-routing.md`: `testing.md` passa a ser lido também em
+  implementação de API e em trabalho de banco. 5 execuções em 40 não
+  geraram teste, concentradas em tarefas cuja linha de roteamento não
+  entregava o arquivo.
+
+### Measured and deliberately unchanged
+
+- Timeout em chamada externa (2 de 4) e validação de valor monetário
+  (1 de 4) falharam, mas a regra existe, é específica e é roteada em
+  ambos os casos. Repetir a regra não aumenta obediência. Se persistirem
+  na próxima rodada, viram candidatas a verificação determinística.
+- Símbolo inventado e stub no caminho pedido: 40 de 40 execuções passaram
+  nos dois lados, inclusive sem a skill. A seção de grounding do
+  `ai-usage-policy.md` será avaliada como terceira condição na próxima
+  rodada antes de qualquer corte.
+
 ## 2026-11-22 (second entry of the day, time not captured)
 
 **Author:** Patrick de Souza Teixeira

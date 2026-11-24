@@ -25,6 +25,19 @@ jurisdiction.
   `observability.md`. A stack trace or debug log that includes a full
   personal record to make troubleshooting easier is itself a data
   protection problem.
+- **An API response is an exposure surface, like a log.** Return a DTO
+  with the fields the caller actually needs, never the persistence
+  entity: an entity serialized straight to JSON leaks every column
+  someone adds to it later. A sensitive identifier (a national ID, a
+  full document number) is masked unless the screen has a stated reason
+  to show it in full.
+- **Deletion and retention are a design decision, not a DELETE.** When a
+  subject asks for erasure, separate what must still be kept by legal or
+  accounting obligation from what should go. Anonymize what has to
+  survive for aggregate or fiscal reasons, so the record stops being
+  personal data instead of disappearing. A silent hard delete of a row
+  other records point at trades a privacy problem for a referential
+  integrity problem.
 - **Never paste real personal data into an AI chat session for
   debugging.** Use synthetic or anonymized data instead; see
   `ai-usage-policy.md` for the same rule stated from the AI-usage side.

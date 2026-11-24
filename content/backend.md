@@ -32,6 +32,14 @@ described in `architecture.md`.
   Reference). Ownership checks happen server-side on every request, not
   only when a UI element happens to hide an action.
 
+- The identity that authorization decides on comes from the server's
+  authenticated context, never from a header, parameter, or body field
+  the caller controls. Verifying ownership against a client-supplied
+  user id is not an ownership check: it asks the attacker who they are.
+  If an upstream gateway injects that identity, the assumption is
+  written down where the endpoint lives, and the endpoint is not
+  reachable from outside that gateway.
+
 ## Error handling
 
 - Weak exception handling is a defect, not a style preference: catching
