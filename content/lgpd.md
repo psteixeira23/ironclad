@@ -32,11 +32,11 @@ jurisdiction.
   full document number) is masked unless the screen has a stated reason
   to show it in full.
 - **Every entity that stores personal data carries its purpose and its
-  retention period, written next to the declaration.** One line is
-  enough, and "indefinite, pending a business decision" is a valid
-  answer; an absent line is not. Without it, nobody downstream can tell
-  whether a record may be deleted, and the question resurfaces years
-  later with no one left who knows.
+  retention period, written next to the declaration.** State a period
+  tied to the purpose. If an applicable legal basis or exception
+  requires keeping identifiable data beyond that period, document it
+  and why the data remains necessary. "Indefinite, pending a business
+  decision" is not a valid answer; an absent line is not either.
 - **Erasure is a design decision, not a DELETE.** Separate what a legal
   or accounting obligation still requires from what should go, and
   anonymize what has to survive, so the record stops being personal data
