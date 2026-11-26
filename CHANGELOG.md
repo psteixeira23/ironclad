@@ -11,6 +11,29 @@ hour ago," "2 hours ago"), the computed time is marked approximate.
 Where no screenshot evidence exists for an entry, only the date is
 given, inferred from the confirmed entries immediately around it.
 
+## 2026-11-26 (docs(readme))
+
+**Author:** Claude
+
+### Changed
+
+- `README.md`: opening now leads with the pain ("a table with no
+  pagination or a duplicate CNPJ") instead of the product category,
+  and frames the cost number as the reason `core` is the default,
+  not as a standalone warning.
+- New "A measurement" section states the two findings this release is
+  based on separately, per the content/intensity.md and bin/ironclad
+  changes logged above: quality was not detectably different (kept
+  with what did move: ordering, response limits, uniqueness), and
+  `full`'s cost was 2.03x higher because of file count, not content
+  size.
+- Dropped the "done gate" opening bullet and the matching paragraph
+  under "Intensity levels", both described criteria removed from
+  `content/ai-usage-policy.md` in the entry above; replaced with the
+  scope-discipline criterion that remains.
+- "Getting started" documents `ironclad init` as a second step, per
+  the `bin/ironclad` change above.
+
 ## 2026-11-26 (feat(content))
 
 **Author:** Claude

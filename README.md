@@ -5,10 +5,14 @@
 
 [![CI](https://github.com/psteixeira23/ironclad/actions/workflows/ci.yml/badge.svg)](https://github.com/psteixeira23/ironclad/actions/workflows/ci.yml)
 
-Ironclad is a portable engineering governance toolkit for AI coding agents. It keeps a consistent set of architecture, security, testing, and process rules in one place, and installs a thin, harness-specific adapter for whichever AI coding tool you use, so the same standards apply everywhere without being rewritten per project or per tool. Two things put that toolkit in charge rather than just on the record:
+An AI coding agent writes code that compiles, passes review, and still ships a table with no pagination or a duplicate CNPJ in the database.
 
-- **An intensity dial that governs how the agent works, not only which files it reads.** `core` plans and asks less, deferring to the escalation order in `ai-usage-policy.md`; `max` runs the alignment protocol on every non-trivial task and reviews its own output before calling anything done. The confirmation protocol for schema changes, new dependencies, and anything else irreversible holds the same at every level, see "Intensity levels" below.
-- **A done gate the agent has to pass before reporting a task complete.** Tests claimed to pass were actually run and read, nothing is stubbed or left as a TODO, every symbol it referenced was confirmed to exist, and the change touched only what the task asked for, at every intensity level, see "Intensity levels" below.
+Measured at `full`, the default through 1.6.2: quality barely moved (0.884 → 0.904) while cost doubled, so quality per dollar fell by half. That's why `core` is the default now, see "A measurement" below.
+
+Ironclad is a portable engineering governance toolkit for AI coding agents: a consistent set of architecture, security, testing, and process rules in one place, with a thin, harness-specific adapter per AI coding tool, so the same standards apply everywhere without being rewritten per project or per tool. Two things put it in charge rather than just on the record:
+
+- **An intensity dial that governs how the agent works, not only which files it reads.** `core` (the default) plans and asks less, deferring to the escalation order in `ai-usage-policy.md`; `max` runs the alignment protocol on every non-trivial task and reviews its own output before calling anything done. The confirmation protocol for schema changes, new dependencies, and anything else irreversible holds the same at every level, see "Intensity levels" below.
+- **Installation that does not depend on the harness deciding to load it.** Automatic skill invocation is probabilistic: in the same measurement, an identical prompt made the skill read zero files in one repetition and ten in the next. `ironclad init` writes a short, deterministic reminder into the project's `CLAUDE.md` instead, so the standard is consulted every time, see "Getting started" below.
 
 ## Support
 
@@ -131,16 +135,44 @@ guidance loads and how the agent works:
   output before it reports completion, and a mandatory coverage floor.
   For critical or personal-data work.
 
-At every level, the agent applies the same criteria before reporting a
-task as done: the checks it claims passed were actually run and read,
-nothing is left stubbed or marked TODO, every symbol it referenced was
-confirmed to exist, and nothing outside the task was touched.
+At every level, the agent applies the same scope discipline before
+reporting a task as done: nothing outside the task was touched.
 
 The security floor (`ai-usage-policy.md`, `language.md`, `security.md`,
 and `lgpd.md` when personal data is involved) loads at every level, and
 no level relaxes confirmation for a schema change, a destructive
 migration, a new dependency, or anything else irreversible. The dial
 trades thoroughness for speed, never safety. See `content/intensity.md`.
+
+## A measurement
+
+Three rounds, 100 executions, blind evaluation, pre-registered with a
+hash. Two separate findings, kept separate because they are not the
+same effect:
+
+- **This content set made no detectable difference to quality**,
+  measured at `full`: 0.884 without it vs. 0.904 with it (p = 0.44).
+  What *did* move, measurably: ordering validated against a closed
+  list, a response size limit, and a uniqueness constraint enforced at
+  the database level. Both get cited here, what moved and what did
+  not.
+- **`full` cost 2.03x more per execution** than no skill at all
+  ($0.4860 vs. $0.2394), because it loads 7 to 10 files per task.
+  That is why `core`, which loads 1, is the default now, not the
+  content cuts below, which are a separate, smaller effect.
+- **Automatic invocation is probabilistic, not a prompt-wording
+  problem.** The same prompt made the skill read ten files in one
+  repetition and zero in the next. `ironclad init` fixes this by
+  writing the reminder directly into the project, see "Getting
+  started" above.
+- **The always-on floor shrank by evidence, not by size or style.**
+  Two sections were removed from `content/ai-usage-policy.md` because
+  72 of 72 measured executions, with or without the skill, never
+  produced the error they guarded against: an invented symbol, a stub
+  or TODO left behind, or a false claim that tests passed. 374 lines /
+  19,133 characters before, 331 lines / 17,111 characters after, 11.5%
+  fewer lines, 10.6% fewer characters, independent of which intensity
+  level is selected. See `CHANGELOG.md` for the itemized cuts.
 
 ## Testing
 
