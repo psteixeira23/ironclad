@@ -90,6 +90,14 @@ node install.js
 
 The installer asks which harness(es) to set up and installs at the global scope. No project-specific configuration is required.
 
+For Claude Code, also run this inside each project where Ironclad should apply, so the skill is consulted deterministically instead of relying on automatic invocation, which is probabilistic:
+
+```bash
+ironclad init
+```
+
+This writes a short, demarcated block into that project's `CLAUDE.md` (use `--path <dir>` to target a different directory). Safe to re-run; it updates the block in place.
+
 ## Checking the installed version
 
 ```bash
