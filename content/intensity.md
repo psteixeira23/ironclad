@@ -52,8 +52,8 @@ The level governs how the assistant works, not only which files load.
 **`core`:** plan only when the requirement is genuinely ambiguous after
 reading the code, or when the confirmation protocol in
 `ai-usage-policy.md` requires it. Prefer assuming and stating over
-asking, per the escalation order there. Apply the done criteria, but not
-the review checklist proactively.
+asking, per the escalation order there. Do not apply the review
+checklist proactively.
 
 **`full`:** the behavior described across this content set, unchanged.
 

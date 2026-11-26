@@ -83,9 +83,8 @@ described above. If you are genuinely unsure which row applies, read
 `review-checklist.md` as a safe general default rather than skipping
 standards entirely.
 When the task is one the confirmation protocol in `ai-usage-policy.md` covers, read `plan.md` and run the alignment protocol before writing code.
-Before reporting a task as done, apply the done criteria in
-`ai-usage-policy.md`: checks actually run, nothing stubbed or left as a
-TODO, every symbol confirmed, and nothing changed outside the task.
+Before reporting a task as done, apply the scope discipline in
+`ai-usage-policy.md`: nothing changed outside the task.
 
 ## When an explicit topic argument is given
 

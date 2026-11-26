@@ -16,8 +16,7 @@ At minimum, before code merges, the gate must fail on:
 
 1. A reference to a symbol that does not exist: an undefined function,
    method, class, variable, import, or module. This is the primary
-   defense against invented symbols, see the grounding rule in
-   `ai-usage-policy.md`.
+   defense against invented symbols.
 2. A type error: a value used in a way its type does not allow.
 
 Beyond that minimum, a gate usually also runs a linter for likely-bug and
@@ -72,12 +71,13 @@ Run it as early as is practical, and in more than one place:
 A local hook is for speed; CI is for the guarantee. A project that can
 only have one should make CI the one.
 
-## Relationship to the advisory rules
+## Why this is a gate, not an advisory rule
 
-The grounding rule in `ai-usage-policy.md` asks the assistant not to
-invent symbols. This gate catches the cases where it does anyway. The
-rule reduces the frequency; the gate removes what slips through before it
-reaches production. Neither replaces the other, and neither alone makes
-hallucinated code impossible.
+An invented symbol is caught here mechanically, not by asking the
+assistant not to produce one: a build or a lint step either blocks a
+reference to a symbol that does not exist, or it does not. Measurement
+across 72 executions found no invented symbol either way, with or
+without an explicit rule against it, so the gate is what the content
+set relies on for this guarantee, not a reminder.
 
 Related: `ai-usage-policy.md`, `testing.md`, `security.md`, `commits.md`.

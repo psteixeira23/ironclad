@@ -11,6 +11,43 @@ hour ago," "2 hours ago"), the computed time is marked approximate.
 Where no screenshot evidence exists for an entry, only the date is
 given, inferred from the confirmed entries immediately around it.
 
+## 2026-11-26 (feat(content))
+
+**Author:** Claude
+
+### Removed
+
+- `content/ai-usage-policy.md`: the "Grounding and uncertainty" section
+  (26 lines, 1,354 characters). Evidence: `G1_simbolos`, 72 of 72
+  executions with no invented symbol, with or without the skill;
+  `A1_compila`, 26 of 26 in v2. The rule did not change the measured
+  outcome in either condition. `quality-gate.md` and
+  `plan.md` updated to drop the now-stale cross-reference; the
+  mechanical gate in `quality-gate.md` still catches an invented
+  symbol, it just no longer depends on an advisory rule to reduce the
+  frequency.
+- `content/ai-usage-policy.md`: the "Before reporting a task as done"
+  section (17 lines, 668 characters), including its stub/TODO bullet.
+  Evidence: `G3_teste_real`, 72 of 72 in both conditions for the
+  tests-actually-run claim; `G2_sem_stub`, 72 of 72 in both conditions
+  for stub or TODO left behind. Neither happened, with or without the
+  skill. The condensed inline copies of both sections in
+  `adapters/claude/SKILL.md.template`,
+  `adapters/copilot/instructions.md.template`, and
+  `adapters/codex/AGENTS.md.template` are cut or trimmed to match.
+- No other rule in the always-on floor (`ai-usage-policy.md`,
+  `language.md`, `security.md`, `lgpd.md`) matched this bar (something
+  that never happened in either condition across the 72 measured
+  executions); none of the others are cut.
+
+### Changed
+
+- Always-on floor: 374 lines / 19,133 characters before this entry,
+  331 lines / 17,111 characters after (11.5% fewer lines, 10.6% fewer
+  characters). This is independent of the `core`-as-default change
+  logged separately: that one changes how many files load per task,
+  this one shrinks the files that always load regardless of level.
+
 ## 2026-11-26 (feat(content)!)
 
 **Author:** Claude

@@ -19,32 +19,6 @@ and how the AI assistant itself should behave while working.
 
 ## Part 2: How the assistant should operate
 
-### Grounding and uncertainty
-
-Do not reference or call a function, method, class, flag, environment
-variable, file path, configuration key, or library API that you have not
-confirmed exists. Confirm it in the actual code or the library's current
-documentation, not from memory, which goes stale and produces
-plausible-looking names that do not exist. An invented symbol that merely
-looks correct is the most common failure in AI-generated code.
-
-When stating a fact about the codebase (that something is configured in a
-given file, that one function calls another, that a value comes from a
-particular place), point to the source: the file, and the line or symbol.
-A claim a reviewer can check in one step is worth more than a confident
-assertion they have to take on trust.
-
-When you do not know something and cannot verify it in the available code
-or documentation, say so and check, or ask. Do not fill the gap with a
-plausible guess presented as fact. "I need to confirm X before using it"
-is a correct and useful answer; a fabricated X that fails at runtime is
-not.
-
-This generalizes the versioning rule below: verify against the real
-artifact, not against training data, for symbols and APIs just as for
-version-support status. The quality gate in `quality-gate.md` is what
-enforces this automatically, for the cases a rule alone does not catch.
-
 ### Confirmation protocol
 
 Risk-based, not blanket. Do not ask for approval on every change, that
@@ -94,23 +68,6 @@ If an approach fails twice in a row, the same test still fails, or the
 same error persists, stop. Report what was tried, why it likely failed,
 and ask how to proceed instead of attempting further variations
 unprompted.
-
-### Before reporting a task as done
-
-All of these must be true before the work is reported as complete:
-
-- The tests and checks claimed to pass were actually run, in this
-  session, and their real output was read. "This should pass" is not a
-  result.
-- Nothing is left stubbed, mocked out, commented out, or marked TODO in
-  the path the task was about.
-- Every symbol introduced or referenced was confirmed to exist, per the
-  grounding rule above.
-- The change does only what the task asked, per scope discipline below.
-
-If any of them is not true, say which one, in the first line of the
-report, instead of declaring completion with the caveat buried at the
-end.
 
 ### Scope discipline
 

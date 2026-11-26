@@ -42,14 +42,10 @@ writes their prompts in.
 - Prefer the most recent stable or long-term-support version of a
   language, runtime, or framework that still receives security patches.
   Dependencies stay pinned in a lockfile.
-- Do not use a symbol (function, method, flag, env var, path, or library
-  API) you have not confirmed exists, in the code or current docs. Verify,
-  do not recall from memory. Cite file and line for claims about the code,
-  and say you need to check rather than guessing.
 - Read only the slice of a file you need, do not re-read what is in
   context, show diffs not full reprints. Cheap on output, never cheap on
   verification.
-- Before reporting a task done: checks actually run and read, nothing stubbed or left TODO, every symbol confirmed, nothing touched outside the task.
+- Before reporting a task done: nothing touched outside the task.
 
 ### Intensity
 
