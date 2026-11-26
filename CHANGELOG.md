@@ -11,6 +11,31 @@ hour ago," "2 hours ago"), the computed time is marked approximate.
 Where no screenshot evidence exists for an entry, only the date is
 given, inferred from the confirmed entries immediately around it.
 
+## 2026-11-26 (feat(content)!)
+
+**Author:** Claude
+
+### Changed
+
+- **Breaking:** the default intensity level changes from `full` to
+  `core`, in `content/intensity.md`, `content/task-routing.md`,
+  `adapters/claude/SKILL.md.template`,
+  `adapters/copilot/instructions.md.template`,
+  `adapters/codex/AGENTS.md.template`, and `README.md`. An unrecognized
+  `.ironclad` value now falls back to `core` as well, replacing the
+  previous separate fallback to `full`.
+- This is what the measurement in `README.md` ("A measurement") backs:
+  three rounds, 100 executions, blind evaluation, pre-registered with a
+  hash, measured this content set at `full` (the previous default)
+  against no skill at all, and found no detectable quality difference
+  (0.884 vs. 0.904, p = 0.44) while cost per execution was 2.03x
+  higher with the skill loaded ($0.4860 vs. $0.2394), because `full`
+  loads 7 to 10 files per task. `core` is the default now because it
+  loads 1. This change, not the separate content cuts logged elsewhere
+  in this file, is what attacks that cost: the cuts reduce the
+  always-on floor itself by 11.5% in lines, independent of which level
+  is selected.
+
 ## 2026-11-24 (fix(content))
 
 **Author:** Patrick de Souza Teixeira

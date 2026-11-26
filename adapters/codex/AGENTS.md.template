@@ -53,8 +53,9 @@ writes their prompts in.
 
 ### Intensity
 
-Three levels: `core`, `full` (default), `max`. Read the level from an
-`.ironclad` file at the project root, else default `full`. The level
+Three levels: `core` (default), `full`, `max`. Read the level from an
+`.ironclad` file at the project root, else default `core` (also the
+fallback for an unrecognized value). The level
 never drops the floor (`language.md`, `ai-usage-policy.md`,
 `security.md`, and `lgpd.md` for personal data), which always applies.
 `core` reads only the single most task-specific file per task; `full`

@@ -110,16 +110,22 @@ Reports the version currently installed on this machine (from `~/.ironclad/VERSI
 
 Ironclad runs at one of three levels, set per project by an `.ironclad`
 file at the project root (or per session with `/ironclad core|full|max`
-on Claude Code), defaulting to `full`. The level decides both how much
+on Claude Code), defaulting to `core`. The level decides both how much
 guidance loads and how the agent works:
 
-- `core`: the security floor plus only the single most task-specific
-  file. The agent plans only when the requirement is genuinely
-  ambiguous after reading the code, and prefers stating an assumption
-  over asking. Lowest token cost and fewest interruptions, for
-  prototypes and throwaway work.
-- `full` (default): the floor plus every file a task maps to, with the
-  standard planning and confirmation behavior.
+- `core` (default): the security floor plus only the single most
+  task-specific file. The agent plans only when the requirement is
+  genuinely ambiguous after reading the code, and prefers stating an
+  assumption over asking. Lowest token cost and fewest interruptions.
+  Measured at `full` (the previous default) across 100 executions,
+  this content set made no detectable difference to quality (0.884
+  vs. 0.904 without it, p = 0.44) while doubling cost per execution,
+  because `full` loads 7 to 10 files per task where `core` loads 1,
+  see "A measurement" below.
+- `full`: the floor plus every file a task maps to, with the standard
+  planning and confirmation behavior. Select it deliberately for work
+  whose architectural surface is wide enough that `core`'s single file
+  is not enough on its own.
 - `max`: everything `full` loads, plus the alignment protocol on any
   non-trivial task, the review checklist applied to the agent's own
   output before it reports completion, and a mandatory coverage floor.

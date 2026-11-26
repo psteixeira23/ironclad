@@ -63,10 +63,11 @@ it never drops the floor. `language.md`, `ai-usage-policy.md`, and
 `security.md` (plus `lgpd.md` when the project handles personal data)
 apply at every level. The level is read from an `.ironclad` file at the
 project root (its first non-empty, non-comment line names the level), and
-defaults to `full` when that file is absent. At `core`, consult only the
-single most task-specific file for a task; at `full`, every file the task
-maps to; at `max`, also apply `review-checklist.md` and treat the
-coverage floor as mandatory. See `{{CONTENT_DIR}}/intensity.md`.
+defaults to `core` when that file is absent or the value is not
+recognized. At `core`, consult only the single most task-specific file
+for a task; at `full`, every file the task maps to; at `max`, also apply
+`review-checklist.md` and treat the coverage floor as mandatory. See
+`{{CONTENT_DIR}}/intensity.md`.
 
 ### Task routing
 
