@@ -88,10 +88,13 @@ given, inferred from the confirmed entries immediately around it.
   three rounds, 100 executions, blind evaluation, pre-registered with a
   hash, measured this content set at `full` (the previous default)
   against no skill at all, and found no detectable quality difference
-  (0.884 vs. 0.904, p = 0.44) while cost per execution was 2.03x
-  higher with the skill loaded ($0.4860 vs. $0.2394), because `full`
-  loads 7 to 10 files per task. `core` is the default now because it
-  loads 1. This change, not the separate content cuts logged elsewhere
+  (0.884 without it vs. 0.904 with it, p = 0.44, paired permutation
+  test by task) while cost per execution was 2.03x higher with the
+  skill loaded ($0.4860 vs. $0.2394). `full` loads 6 to 12 files per
+  task, floor included (observed range from two of the three rounds,
+  reprocessed; not a guarantee); `core` loads the floor plus 1
+  task-specific file by definition. That file-count gap, not the
+  separate content cuts logged elsewhere
   in this file, is what attacks that cost: the cuts reduce the
   always-on floor itself by 11.5% in lines, independent of which level
   is selected.
