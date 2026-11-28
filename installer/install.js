@@ -118,7 +118,11 @@ function installClaude() {
   copyDirFlat(CONTENT_SRC, skillDir);
 
   log(`Claude Code skill installed at ${skillDir}`);
+  log('Run `ironclad init` inside each project where Ironclad should apply,');
+  log('to write a reminder into its CLAUDE.md (automatic skill invocation');
+  log('is probabilistic, this makes consulting it deterministic).');
   summary.push(`Claude Code: skill installed at ${skillDir} (invoke with /ironclad)`);
+  summary.push('Claude Code: run `ironclad init` inside each project to load it deterministically');
 }
 
 /**

@@ -31,13 +31,13 @@ Determine the active level, highest precedence first:
    typed this session.
 2. An `.ironclad` file at the project root whose first non-empty,
    non-comment line names the level.
-3. The default, `full`, if neither is present.
+3. The default, `core`, if neither is present.
 
 Then apply it when reading `task-routing.md`: at `core`, read only the
 single most task-specific file from the matching row; at `full`, read
 every file the row points to; at `max`, additionally read
 `review-checklist.md` and treat the coverage floor in `testing.md` as
-mandatory. An unrecognized level falls back to `full`.
+mandatory. An unrecognized level falls back to the same default, `core`.
 
 ## When the user types `/ironclad` with no argument
 
@@ -83,9 +83,8 @@ described above. If you are genuinely unsure which row applies, read
 `review-checklist.md` as a safe general default rather than skipping
 standards entirely.
 When the task is one the confirmation protocol in `ai-usage-policy.md` covers, read `plan.md` and run the alignment protocol before writing code.
-Before reporting a task as done, apply the done criteria in
-`ai-usage-policy.md`: checks actually run, nothing stubbed or left as a
-TODO, every symbol confirmed, and nothing changed outside the task.
+Before reporting a task as done, apply the scope discipline in
+`ai-usage-policy.md`: nothing changed outside the task.
 
 ## When an explicit topic argument is given
 

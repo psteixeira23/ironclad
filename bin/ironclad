@@ -4,15 +4,81 @@
 /**
  * Ironclad CLI.
  *
- * Today this only reports the installed version. Actual engineering
- * standards work happens through the skill/adapter installed for your
- * harness (Claude Code, GitHub Copilot, or OpenAI Codex), invoked from
- * within that harness, not from this command.
+ * Reports the installed version, and `init` writes a short reminder
+ * block into a project's CLAUDE.md so Claude Code consults Ironclad
+ * deterministically instead of relying on automatic skill invocation,
+ * which is probabilistic. Otherwise, engineering standards work happens
+ * through the skill/adapter installed for your harness (Claude Code,
+ * GitHub Copilot, or OpenAI Codex), invoked from within that harness.
  */
 
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+
+const IRONCLAD_START = '<!-- IRONCLAD START -->';
+const IRONCLAD_END = '<!-- IRONCLAD END -->';
+
+function skillDir() {
+  return path.join(os.homedir(), '.claude', 'skills', 'ironclad');
+}
+
+function upsertDemarcatedBlock(filePath, blockContent) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+
+  let existing = '';
+  if (fs.existsSync(filePath)) {
+    existing = fs.readFileSync(filePath, 'utf8');
+  }
+
+  const startIdx = existing.indexOf(IRONCLAD_START);
+  const endIdx = existing.indexOf(IRONCLAD_END);
+
+  let updated;
+  if (startIdx !== -1 && endIdx !== -1 && endIdx > startIdx) {
+    const before = existing.slice(0, startIdx);
+    const after = existing.slice(endIdx + IRONCLAD_END.length);
+    updated = before + blockContent + after;
+  } else if (existing.length > 0) {
+    const separator = existing.endsWith('\n') ? '\n' : '\n\n';
+    updated = existing + separator + blockContent + '\n';
+  } else {
+    updated = blockContent + '\n';
+  }
+
+  fs.writeFileSync(filePath, updated, 'utf8');
+}
+
+function runInit(args) {
+  let targetDir = process.cwd();
+  const pathFlagIdx = args.indexOf('--path');
+  if (pathFlagIdx !== -1 && args[pathFlagIdx + 1]) {
+    targetDir = path.resolve(args[pathFlagIdx + 1]);
+  }
+
+  const dir = skillDir();
+  let routingPath = path.join(dir, 'task-routing.md');
+  if (!fs.existsSync(routingPath)) {
+    console.log(`Warning: ${routingPath} not found. Run the installer first.`);
+    console.log('Writing the block anyway, with the standard install path.');
+  }
+
+  const block = [
+    IRONCLAD_START,
+    '',
+    '## Ironclad',
+    '',
+    'Before writing or reviewing code in this project, read',
+    `\`${routingPath}\` and follow the files it points to for`,
+    'the task at hand.',
+    '',
+    IRONCLAD_END,
+  ].join('\n');
+
+  const targetPath = path.join(targetDir, 'CLAUDE.md');
+  upsertDemarcatedBlock(targetPath, block);
+  console.log(`Ironclad block written to ${targetPath}`);
+}
 
 function readVersion() {
   const installedPath = path.join(os.homedir(), '.ironclad', 'VERSION');
@@ -31,6 +97,11 @@ function readVersion() {
 function main() {
   const args = process.argv.slice(2);
 
+  if (args[0] === 'init') {
+    runInit(args.slice(1));
+    return;
+  }
+
   if (args.includes('--version') || args.includes('--v') || args.includes('-v')) {
     console.log(readVersion());
     return;
@@ -38,10 +109,13 @@ function main() {
 
   console.log(`Ironclad v${readVersion()}`);
   console.log('');
-  console.log('This command currently only reports the installed version.');
-  console.log('Engineering standards are used through the skill installed for');
-  console.log('your harness (Claude Code: /ironclad, GitHub Copilot and OpenAI');
-  console.log('Codex: applied automatically from their instruction files).');
+  console.log('Run `ironclad init` inside a project to write a short reminder');
+  console.log('into its CLAUDE.md, so Claude Code consults Ironclad on every');
+  console.log('task (use --path <dir> to target a different directory).');
+  console.log('Engineering standards are otherwise used through the skill');
+  console.log('installed for your harness (Claude Code: /ironclad, GitHub');
+  console.log('Copilot and OpenAI Codex: applied automatically from their');
+  console.log('instruction files).');
   console.log('');
   console.log('Run the installer again to update: node installer/install.js');
 }

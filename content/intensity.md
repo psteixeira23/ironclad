@@ -24,17 +24,20 @@ skip security or data-protection rules.
 
 ## Levels
 
-**`core`:** the always-on floor, plus only the single most task-specific
-adjustable file from the matching `task-routing.md` row (for an API task,
-`backend.md` without its `architecture.md` companion). Lowest token cost.
-Intended for prototypes, throwaway scripts, and spikes, where loading the
-full standard is disproportionate. The reduced architectural guidance is
-a deliberate trade-off of this level, not an oversight, so do not select
-`core` for code heading to production.
+**`core`** (default): the always-on floor, plus only the single most
+task-specific adjustable file from the matching `task-routing.md` row
+(for an API task, `backend.md` without its `architecture.md`
+companion). Lowest token cost, and the right default for ordinary
+application work: measured at `full` (the previous default) across
+100 executions, this content set made no detectable difference to
+quality (0.884 vs. 0.904 without it, p = 0.44) while doubling cost per
+execution, because `full` loads 7 to 10 files per task where `core`
+loads 1.
 
-**`full`** (default): the always-on floor, plus every adjustable file the
-matching `task-routing.md` row or rows point to. This is the standard
-behavior and the right default for ordinary application work.
+**`full`:** the always-on floor, plus every adjustable file the
+matching `task-routing.md` row or rows point to. Select it deliberately
+when a task's architectural surface is wide enough that the single
+file `core` picks is not enough on its own.
 
 **`max`:** everything `full` reads, plus `review-checklist.md` applied
 proactively rather than only on an explicit review request, and the
@@ -49,8 +52,8 @@ The level governs how the assistant works, not only which files load.
 **`core`:** plan only when the requirement is genuinely ambiguous after
 reading the code, or when the confirmation protocol in
 `ai-usage-policy.md` requires it. Prefer assuming and stating over
-asking, per the escalation order there. Apply the done criteria, but not
-the review checklist proactively.
+asking, per the escalation order there. Do not apply the review
+checklist proactively.
 
 **`full`:** the behavior described across this content set, unchanged.
 
@@ -74,10 +77,10 @@ Precedence, highest first:
    fixes the level for the whole project, so a critical project can be
    set to `max` once and stay there. Lines beginning with `#` are
    comments.
-3. The built-in default, `full`, when neither of the above is present.
+3. The built-in default, `core`, when neither of the above is present.
 
-An unrecognized value falls back to `full`, the safe middle, rather than
-silently guessing a level.
+An unrecognized value falls back to the same default, `core`, rather
+than silently guessing a level.
 
 ## Relationship to task routing
 

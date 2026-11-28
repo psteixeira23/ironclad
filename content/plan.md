@@ -74,8 +74,8 @@ The plan is where the thinking starts, not where it ends.
 - If the plan turns out to be wrong halfway through, stop and say so
   rather than quietly building something else. The plan was agreed on;
   a different plan has to be agreed on too.
-- When the last increment is done, apply the done criteria in
-  `ai-usage-policy.md` before reporting completion.
+- When the last increment is done, verify it before reporting
+  completion, per the scope discipline in `ai-usage-policy.md`.
 
 Related: `ai-usage-policy.md`, `testing.md`, `architecture.md`,
 `task-routing.md`.

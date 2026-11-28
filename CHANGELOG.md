@@ -11,6 +11,91 @@ hour ago," "2 hours ago"), the computed time is marked approximate.
 Where no screenshot evidence exists for an entry, only the date is
 given, inferred from the confirmed entries immediately around it.
 
+## 2026-11-26 (docs(readme))
+
+**Author:** Claude
+
+### Changed
+
+- `README.md`: opening now leads with the pain ("a table with no
+  pagination or a duplicate CNPJ") instead of the product category,
+  and frames the cost number as the reason `core` is the default,
+  not as a standalone warning.
+- New "A measurement" section states the two findings this release is
+  based on separately, per the content/intensity.md and bin/ironclad
+  changes logged above: quality was not detectably different (kept
+  with what did move: ordering, response limits, uniqueness), and
+  `full`'s cost was 2.03x higher because of file count, not content
+  size.
+- Dropped the "done gate" opening bullet and the matching paragraph
+  under "Intensity levels", both described criteria removed from
+  `content/ai-usage-policy.md` in the entry above; replaced with the
+  scope-discipline criterion that remains.
+- "Getting started" documents `ironclad init` as a second step, per
+  the `bin/ironclad` change above.
+
+## 2026-11-26 (feat(content))
+
+**Author:** Claude
+
+### Removed
+
+- `content/ai-usage-policy.md`: the "Grounding and uncertainty" section
+  (26 lines, 1,354 characters). Evidence: `G1_simbolos`, 72 of 72
+  executions with no invented symbol, with or without the skill;
+  `A1_compila`, 26 of 26 in v2. The rule did not change the measured
+  outcome in either condition. `quality-gate.md` and
+  `plan.md` updated to drop the now-stale cross-reference; the
+  mechanical gate in `quality-gate.md` still catches an invented
+  symbol, it just no longer depends on an advisory rule to reduce the
+  frequency.
+- `content/ai-usage-policy.md`: the "Before reporting a task as done"
+  section (17 lines, 668 characters), including its stub/TODO bullet.
+  Evidence: `G3_teste_real`, 72 of 72 in both conditions for the
+  tests-actually-run claim; `G2_sem_stub`, 72 of 72 in both conditions
+  for stub or TODO left behind. Neither happened, with or without the
+  skill. The condensed inline copies of both sections in
+  `adapters/claude/SKILL.md.template`,
+  `adapters/copilot/instructions.md.template`, and
+  `adapters/codex/AGENTS.md.template` are cut or trimmed to match.
+- No other rule in the always-on floor (`ai-usage-policy.md`,
+  `language.md`, `security.md`, `lgpd.md`) matched this bar (something
+  that never happened in either condition across the 72 measured
+  executions); none of the others are cut.
+
+### Changed
+
+- Always-on floor: 374 lines / 19,133 characters before this entry,
+  331 lines / 17,111 characters after (11.5% fewer lines, 10.6% fewer
+  characters). This is independent of the `core`-as-default change
+  logged separately: that one changes how many files load per task,
+  this one shrinks the files that always load regardless of level.
+
+## 2026-11-26 (feat(content)!)
+
+**Author:** Claude
+
+### Changed
+
+- **Breaking:** the default intensity level changes from `full` to
+  `core`, in `content/intensity.md`, `content/task-routing.md`,
+  `adapters/claude/SKILL.md.template`,
+  `adapters/copilot/instructions.md.template`,
+  `adapters/codex/AGENTS.md.template`, and `README.md`. An unrecognized
+  `.ironclad` value now falls back to `core` as well, replacing the
+  previous separate fallback to `full`.
+- This is what the measurement in `README.md` ("A measurement") backs:
+  three rounds, 100 executions, blind evaluation, pre-registered with a
+  hash, measured this content set at `full` (the previous default)
+  against no skill at all, and found no detectable quality difference
+  (0.884 vs. 0.904, p = 0.44) while cost per execution was 2.03x
+  higher with the skill loaded ($0.4860 vs. $0.2394), because `full`
+  loads 7 to 10 files per task. `core` is the default now because it
+  loads 1. This change, not the separate content cuts logged elsewhere
+  in this file, is what attacks that cost: the cuts reduce the
+  always-on floor itself by 11.5% in lines, independent of which level
+  is selected.
+
 ## 2026-11-24 (fix(content))
 
 **Author:** Patrick de Souza Teixeira

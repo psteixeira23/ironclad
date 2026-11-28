@@ -9,9 +9,10 @@ to everything.
 The active intensity level (see `intensity.md`) decides how many of the
 files below actually load for a task. `ai-usage-policy.md`,
 `language.md`, and `security.md`, plus `lgpd.md` whenever the project
-handles personal data, always load, at every level. At `core`, read only
-the single most task-specific file from the matching row. At `full` (the
-default), read every file the matching row points to. At `max`, also read
+handles personal data, always load, at every level. At `core` (the
+default), read only the single most task-specific file from the
+matching row. At `full`, read every file the matching row points to. At
+`max`, also read
 `review-checklist.md` and treat the coverage floor in `testing.md` as
 mandatory. The level filters this table's output, it does not replace it.
 

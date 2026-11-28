@@ -45,15 +45,10 @@ across contributors who do not share a first language.
 - Prefer the most recent stable or long-term-support version of a
   language, runtime, or framework that still receives security patches.
   Dependencies stay pinned in a lockfile; updates are deliberate.
-- Do not reference or call a symbol (function, method, flag, environment
-  variable, path, or library API) you have not confirmed exists in the
-  code or current documentation. Verify, do not recall from memory. When
-  stating a fact about the code, cite the file and line. Say you need to
-  check rather than presenting a guess as fact.
 - Read only the part of a file you need, do not re-read what is already
   in context, and show diffs rather than reprinting unchanged files.
   Cheap on output, never cheap on verification.
-- Before reporting a task done: checks actually run and read, nothing stubbed or left TODO, every symbol confirmed, nothing touched outside the task.
+- Before reporting a task done: nothing touched outside the task.
 
 ### Intensity
 
@@ -63,10 +58,11 @@ it never drops the floor. `language.md`, `ai-usage-policy.md`, and
 `security.md` (plus `lgpd.md` when the project handles personal data)
 apply at every level. The level is read from an `.ironclad` file at the
 project root (its first non-empty, non-comment line names the level), and
-defaults to `full` when that file is absent. At `core`, consult only the
-single most task-specific file for a task; at `full`, every file the task
-maps to; at `max`, also apply `review-checklist.md` and treat the
-coverage floor as mandatory. See `{{CONTENT_DIR}}/intensity.md`.
+defaults to `core` when that file is absent or the value is not
+recognized. At `core`, consult only the single most task-specific file
+for a task; at `full`, every file the task maps to; at `max`, also apply
+`review-checklist.md` and treat the coverage floor as mandatory. See
+`{{CONTENT_DIR}}/intensity.md`.
 
 ### Task routing
 
