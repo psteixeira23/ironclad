@@ -7,7 +7,7 @@
 
 An AI coding agent writes code that compiles, passes review, and still ships a table with no pagination or a duplicate CNPJ in the database.
 
-Measured at `full`, the default through 1.6.2: quality barely moved (0.884 → 0.904) while cost doubled, so quality per dollar fell by half. That's why `core` is the default now, see "A measurement" below.
+Measured at `full`, the default through 1.6.2: quality barely moved (0.884 without this content set vs. 0.904 with it) while cost doubled, so quality per dollar fell by half. That's why `core` is the default now, see "A measurement" below.
 
 Ironclad is a portable engineering governance toolkit for AI coding agents: a consistent set of architecture, security, testing, and process rules in one place, with a thin, harness-specific adapter per AI coding tool, so the same standards apply everywhere without being rewritten per project or per tool. Two things put it in charge rather than just on the record:
 
@@ -123,9 +123,12 @@ guidance loads and how the agent works:
   assumption over asking. Lowest token cost and fewest interruptions.
   Measured at `full` (the previous default) across 100 executions,
   this content set made no detectable difference to quality (0.884
-  vs. 0.904 without it, p = 0.44) while doubling cost per execution,
-  because `full` loads 7 to 10 files per task where `core` loads 1,
-  see "A measurement" below.
+  without it vs. 0.904 with it, p = 0.44, paired permutation test by
+  task) while doubling cost per execution against no skill at all.
+  `full` loads 6 to 12 files per task, floor included (observed range
+  from two of the three rounds, reprocessed; not a guarantee); `core`
+  loads the floor plus 1 task-specific file by definition. See "A
+  measurement" below.
 - `full`: the floor plus every file a task maps to, with the standard
   planning and confirmation behavior. Select it deliberately for work
   whose architectural surface is wide enough that `core`'s single file
@@ -151,15 +154,18 @@ hash. Two separate findings, kept separate because they are not the
 same effect:
 
 - **This content set made no detectable difference to quality**,
-  measured at `full`: 0.884 without it vs. 0.904 with it (p = 0.44).
-  What *did* move, measurably: ordering validated against a closed
-  list, a response size limit, and a uniqueness constraint enforced at
-  the database level. Both get cited here, what moved and what did
-  not.
+  measured at `full`: 0.884 without it vs. 0.904 with it (p = 0.44,
+  paired permutation test by task). What *did* move, measurably:
+  ordering validated against a closed list, a response size limit,
+  and a uniqueness constraint enforced at the database level. Both
+  get cited here, what moved and what did not.
 - **`full` cost 2.03x more per execution** than no skill at all
-  ($0.4860 vs. $0.2394), because it loads 7 to 10 files per task.
-  That is why `core`, which loads 1, is the default now, not the
-  content cuts below, which are a separate, smaller effect.
+  ($0.4860 vs. $0.2394). `full` loads 6 to 12 files per task, floor
+  included (observed range from two of the three rounds, reprocessed;
+  not a guarantee); `core` loads the floor plus 1 task-specific file
+  by definition. That file-count gap is why `core` is the default
+  now, not the content cuts below, which are a separate, smaller
+  effect.
 - **Automatic invocation is probabilistic, not a prompt-wording
   problem.** The same prompt made the skill read ten files in one
   repetition and zero in the next. `ironclad init` fixes this by
